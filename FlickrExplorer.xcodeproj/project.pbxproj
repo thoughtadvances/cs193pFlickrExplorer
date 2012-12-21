@@ -100,8 +100,6 @@
 			children = (
 				8468C4D61684B27B0085107C /* PhotoSelectorTableViewController.h */,
 				8468C4D71684B27B0085107C /* PhotoSelectorTableViewController.m */,
-				848A2EEB1684A0BC008E0062 /* FlickrExplorerAppDelegate.h */,
-				848A2EEC1684A0BC008E0062 /* FlickrExplorerAppDelegate.m */,
 				848A2F091684A310008E0062 /* TopPlacesTableViewController.h */,
 				848A2F0A1684A310008E0062 /* TopPlacesTableViewController.m */,
 				84F662681684A99A000CE17B /* PhotoViewController.h */,
@@ -116,6 +114,8 @@
 			children = (
 				848A2EF71684A0BC008E0062 /* MainStoryboard_iPad.storyboard */,
 				848A2EF41684A0BC008E0062 /* MainStoryboard_iPhone.storyboard */,
+				848A2EEB1684A0BC008E0062 /* FlickrExplorerAppDelegate.h */,
+				848A2EEC1684A0BC008E0062 /* FlickrExplorerAppDelegate.m */,
 				848A2F021684A0E2008E0062 /* README */,
 				848A2EE41684A0BC008E0062 /* FlickrExplorer-Info.plist */,
 				848A2EE51684A0BC008E0062 /* InfoPlist.strings */,

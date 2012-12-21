@@ -7,9 +7,10 @@
 //
 
 #import "TopPlacesTableViewController.h"
+#import "FlickrFetcher.h"
 
 @interface TopPlacesTableViewController ()
-
+@property NSArray *topPlaces;
 @end
 
 @implementation TopPlacesTableViewController
@@ -25,13 +26,13 @@
 
 - (void)viewDidLoad
 {
+    // FIXME: Fork this into a thread and show progress feedback
+    NSArray *topPlaces = [FlickrFetcher topPlaces];
+    self.topPlaces = topPlaces; // get the topPlaces
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    // Preserve selection between presentations.
+    self.clearsSelectionOnViewWillAppear = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,68 +43,50 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return [self.topPlaces count];
+    NSLog(@"count = %u", [self.topPlaces count]);
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+// Define what to do to present each cell
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:
+(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"Place";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
+                             CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
+    // Get the program corresponding to the row
+    NSDictionary *topPlace = [self.topPlaces objectAtIndex:indexPath.row];
+    // Default locations in case of Flickr data failure
+    NSString *specificLocation = @"Unknown Location";
+    NSString *generalLocation = @"";
+    // Get Flickr location information
+    NSString *placeDescription = [topPlace objectForKey:@"_content"];
     
+    // Separate into components
+    NSArray *descriptionComponents = [placeDescription
+                                      componentsSeparatedByString:@","];
+    
+    // cell main title
+    if ([descriptionComponents count]) { // There is some location data
+        specificLocation = [descriptionComponents objectAtIndex:0];
+    }
+    
+    // The remaining descriptors go in the subtitle
+    for (int i = 1; i < [descriptionComponents count]; i++) {
+        generalLocation = [generalLocation stringByAppendingString:
+                           [descriptionComponents objectAtIndex:i]];
+        if (!(i == [descriptionComponents count] - 1)) {
+            generalLocation = [generalLocation stringByAppendingString:@","];
+        }
+    }
+    // Put the text into the table cell
+    cell.textLabel.text = specificLocation;
+    cell.detailTextLabel.text = generalLocation;
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 

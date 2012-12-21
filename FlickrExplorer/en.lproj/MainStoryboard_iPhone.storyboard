@@ -13,7 +13,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="dib-n8-ZHM" detailTextLabel="IeW-eq-0Le" style="IBUITableViewCellStyleSubtitle" id="5xB-hl-vcW">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Place" textLabel="dib-n8-ZHM" detailTextLabel="IeW-eq-0Le" style="IBUITableViewCellStyleSubtitle" id="5xB-hl-vcW">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -34,7 +34,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <segue destination="nxP-ei-n6N" kind="push" identifier="TopPlacePhotos" id="Tef-rB-2FO"/>
+                                    <segue destination="nxP-ei-n6N" kind="push" id="al0-mv-5qF"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -58,7 +58,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="GkK-LX-vfN" detailTextLabel="4Ud-uz-ZWe" style="IBUITableViewCellStyleSubtitle" id="p93-iP-edt">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo" textLabel="GkK-LX-vfN" detailTextLabel="4Ud-uz-ZWe" style="IBUITableViewCellStyleSubtitle" id="p93-iP-edt">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -93,7 +93,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yle-vZ-yqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1596" y="258"/>
+            <point key="canvasLocation" x="1592" y="236"/>
         </scene>
         <!--Photo View Controller - Photo-->
         <scene sceneID="BW5-g5-ASE">
@@ -129,7 +129,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZf-wZ-8OZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2015" y="258"/>
+            <point key="canvasLocation" x="2011" y="236"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="NsU-wb-IB1">
@@ -143,35 +143,17 @@
                     </tabBar>
                     <connections>
                         <segue destination="eqC-9u-UYq" kind="relationship" relationship="viewControllers" id="Afh-Gd-9oO"/>
-                        <segue destination="j3M-DU-LYc" kind="relationship" relationship="viewControllers" id="MRb-ZA-wc2"/>
+                        <segue destination="CZK-Do-9tw" kind="relationship" relationship="viewControllers" id="ooV-8S-gb4"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wSj-oF-UkF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="291" y="90"/>
         </scene>
-        <!--Navigation Controller - Recent Photos-->
-        <scene sceneID="8wy-Og-92b">
-            <objects>
-                <navigationController id="j3M-DU-LYc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Recent Photos" id="Abi-bR-7hP"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VSZ-a0-9J7">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="nxP-ei-n6N" kind="push" identifier="RecentPhotos" id="dNc-KB-B9g"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zeb-rQ-foh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="748" y="393"/>
-        </scene>
         <!--Navigation Controller - Top Places-->
         <scene sceneID="dI7-Na-BFv">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2zU-Pn-vxR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="eqC-9u-UYq" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Top Places" id="t2j-gY-jjc"/>
                     <toolbarItems/>
@@ -184,9 +166,28 @@
                         <segue destination="QLg-uc-rp7" kind="relationship" relationship="rootViewController" id="6zV-F6-vKw"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2zU-Pn-vxR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="748" y="-264"/>
+        </scene>
+        <!--Navigation Controller - Recent Photos-->
+        <scene sceneID="9rU-Kz-u3N">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YLm-pE-tgQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="CZK-Do-9tw" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Recent Photos" id="Uwl-8a-Q3i"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="oMP-Sv-p22"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mET-0S-cu5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="nxP-ei-n6N" kind="relationship" relationship="rootViewController" id="Ev6-Ih-ZDl"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="848" y="446"/>
         </scene>
     </scenes>
     <classes>
@@ -209,6 +210,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Tef-rB-2FO"/>
+        <segue reference="al0-mv-5qF"/>
     </inferredMetricsTieBreakers>
 </document>
