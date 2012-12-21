@@ -1,5 +1,5 @@
 //
-//  FlickrExplorerViewController.h
+//  PhotoViewController.h
 //  FlickrExplorer
 //
 //  Created by admin on 21/D/12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FlickrExplorerViewController : UIViewController
+@interface PhotoViewController : UIViewController
 
 @end
