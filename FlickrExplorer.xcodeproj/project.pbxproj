@@ -19,6 +19,7 @@
 		848A2EF61684A0BC008E0062 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848A2EF41684A0BC008E0062 /* MainStoryboard_iPhone.storyboard */; };
 		848A2EF91684A0BC008E0062 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848A2EF71684A0BC008E0062 /* MainStoryboard_iPad.storyboard */; };
 		848A2EFC1684A0BC008E0062 /* FlickrExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848A2EFB1684A0BC008E0062 /* FlickrExplorerViewController.m */; };
+		848A2F031684A0E2008E0062 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 848A2F021684A0E2008E0062 /* README */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		848A2EF81684A0BC008E0062 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		848A2EFA1684A0BC008E0062 /* FlickrExplorerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlickrExplorerViewController.h; sourceTree = "<group>"; };
 		848A2EFB1684A0BC008E0062 /* FlickrExplorerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlickrExplorerViewController.m; sourceTree = "<group>"; };
+		848A2F021684A0E2008E0062 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README; path = ../README; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 		848A2EE31684A0BC008E0062 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				848A2F021684A0E2008E0062 /* README */,
 				848A2EE41684A0BC008E0062 /* FlickrExplorer-Info.plist */,
 				848A2EE51684A0BC008E0062 /* InfoPlist.strings */,
 				848A2EE81684A0BC008E0062 /* main.m */,
@@ -168,6 +171,7 @@
 				848A2EF31684A0BC008E0062 /* Default-568h@2x.png in Resources */,
 				848A2EF61684A0BC008E0062 /* MainStoryboard_iPhone.storyboard in Resources */,
 				848A2EF91684A0BC008E0062 /* MainStoryboard_iPad.storyboard in Resources */,
+				848A2F031684A0E2008E0062 /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
