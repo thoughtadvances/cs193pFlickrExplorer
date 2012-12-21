@@ -20,6 +20,7 @@
 		848A2EF91684A0BC008E0062 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848A2EF71684A0BC008E0062 /* MainStoryboard_iPad.storyboard */; };
 		848A2EFC1684A0BC008E0062 /* FlickrExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848A2EFB1684A0BC008E0062 /* FlickrExplorerViewController.m */; };
 		848A2F031684A0E2008E0062 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 848A2F021684A0E2008E0062 /* README */; };
+		848A2F081684A141008E0062 /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 848A2F071684A141008E0062 /* FlickrFetcher.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,9 @@
 		848A2EFA1684A0BC008E0062 /* FlickrExplorerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlickrExplorerViewController.h; sourceTree = "<group>"; };
 		848A2EFB1684A0BC008E0062 /* FlickrExplorerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlickrExplorerViewController.m; sourceTree = "<group>"; };
 		848A2F021684A0E2008E0062 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README; path = ../README; sourceTree = "<group>"; };
+		848A2F051684A141008E0062 /* FlickrAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPIKey.h; sourceTree = "<group>"; };
+		848A2F061684A141008E0062 /* FlickrFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrFetcher.h; sourceTree = "<group>"; };
+		848A2F071684A141008E0062 /* FlickrFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrFetcher.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				848A2EE21684A0BC008E0062 /* FlickrExplorer */,
+				848A2F041684A141008E0062 /* FlickrFetcher */,
 				848A2EDB1684A0BB008E0062 /* Frameworks */,
 				848A2ED91684A0BB008E0062 /* Products */,
 			);
@@ -111,6 +116,17 @@
 				848A2EF21684A0BC008E0062 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		848A2F041684A141008E0062 /* FlickrFetcher */ = {
+			isa = PBXGroup;
+			children = (
+				848A2F051684A141008E0062 /* FlickrAPIKey.h */,
+				848A2F061684A141008E0062 /* FlickrFetcher.h */,
+				848A2F071684A141008E0062 /* FlickrFetcher.m */,
+			);
+			name = FlickrFetcher;
+			path = FlickrExplorer/FlickrFetcher;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,6 +201,7 @@
 				848A2EE91684A0BC008E0062 /* main.m in Sources */,
 				848A2EED1684A0BC008E0062 /* FlickrExplorerAppDelegate.m in Sources */,
 				848A2EFC1684A0BC008E0062 /* FlickrExplorerViewController.m in Sources */,
+				848A2F081684A141008E0062 /* FlickrFetcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
