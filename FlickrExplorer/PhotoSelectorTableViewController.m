@@ -7,115 +7,96 @@
 //
 
 #import "PhotoSelectorTableViewController.h"
+#import "PhotoViewController.h" // segue to it
+#import "FlickrExplorerAppDelegate.h" // NSUserDefaults define keys
+#import "FlickrFetcher.h" // define keys
+
+#define PHOTO_TITLE_KEY FLICKR_PHOTO_TITLE
+#define PHOTO_DESCRIPTION_KEY FLICKR_PHOTO_DESCRIPTION
 
 @interface PhotoSelectorTableViewController ()
-
+@property (nonatomic, strong) NSDictionary *selectedPhoto;
 @end
 
 @implementation PhotoSelectorTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
+- (void)recentPhotos { // get recent photos NSUserDefaults preference
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults synchronize]; // make sure preferences are up-to-date
+    self.photos = [defaults objectForKey:RECENT_PHOTOS_KEY];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (!self.photos) {
+        [self recentPhotos]; // populate the list with recent photos instead
     }
-    return self;
+    
+    if (self.splitViewController) { // keep selection on iPad
+        self.clearsSelectionOnViewWillAppear = NO;
+    }
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillDisappear:(BOOL)animated {
+     // reset to nil so that it will correctly decide to update recents
+    self.photos = nil;
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return [self.photos count]; // Number of rows is the number of photos
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
-}
-
+// Called when a cell is selected
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"Photo";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        
+    // get corresponding photo, in order from most recent to least recent
+    NSDictionary *photo = [self.photos objectAtIndex:[self.photos count] - 1 -
+                           indexPath.row];
     
-    // Configure the cell...
+    id photoTitle = [photo objectForKey:PHOTO_TITLE_KEY];
+    id photoDescription = [photo objectForKey:PHOTO_DESCRIPTION_KEY];
+    
+    // Set the cell text
+    if (!photoTitle || [photoTitle isEqualToString:@""] ||
+        ![photoTitle isKindOfClass:[NSString class]]) {
+        // ensure that the retrieved title meets all requirements to prevent
+        //  crash
+        photoTitle = @"No Title";
+    }
+    
+    if (!photoDescription || ![photoDescription isKindOfClass:[NSString class]]) {
+        // ensure that the retrieved description meets all requirements
+        photoDescription = @"";
+    }
+    
+    cell.textLabel.text = photoTitle;
+    cell.detailTextLabel.text = photoDescription;
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    self.selectedPhoto = [self.photos objectAtIndex:[self.photos count] - 1 -
+                          indexPath.row];
+    [self performSegueWithIdentifier:@"Photo" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"Photo"]) {
+        [segue.destinationViewController setPhoto:self.selectedPhoto];
+    }
 }
 
 @end

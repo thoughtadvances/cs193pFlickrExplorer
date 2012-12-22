@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PhotoSelectorTableViewController : UITableViewController
+// Take an NSArray of NSDictionaries containing information about photos and
+//  display these photos in a UITableViewController
 
+@interface PhotoSelectorTableViewController : UITableViewController
+// NSArray of NSDictionary photos information
+@property (nonatomic, strong) NSArray *photos;
 @end
