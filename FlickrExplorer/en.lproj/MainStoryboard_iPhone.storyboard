@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C3012" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="7aS-rf-wY2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C3012" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="7aS-rf-wY2">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
-        <!--Top Places Table View Controller - Top Places-->
+        <!--Flickr Top Places Table View Controller - Top Places-->
         <scene sceneID="1Pg-pN-851">
             <objects>
-                <tableViewController id="QLg-uc-rp7" customClass="TopPlacesTableViewController" sceneMemberID="viewController">
+                <tableViewController id="QLg-uc-rp7" customClass="FlickrTopPlacesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4PY-tn-kIc">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -20,12 +20,14 @@
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Specific Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dib-n8-ZHM">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Specific Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dib-n8-ZHM">
+                                            <rect key="frame" x="10" y="2" width="150" height="22"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="General Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeW-eq-0Le">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="General Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IeW-eq-0Le">
+                                            <rect key="frame" x="10" y="24" width="107" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -33,9 +35,6 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <connections>
-                                    <segue destination="nxP-ei-n6N" kind="push" id="al0-mv-5qF"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -44,12 +43,15 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Top Places" id="q77-gU-iBl"/>
+                    <connections>
+                        <segue destination="nxP-ei-n6N" kind="push" identifier="PlacePhotos" id="u9S-W3-Asd"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nk5-NV-Oav" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1188" y="-264"/>
         </scene>
-        <!--Photo Selector Table View Controller - Photo Selector-->
+        <!--Photo Selector Table View Controller - Recent Photos-->
         <scene sceneID="h04-68-XFq">
             <objects>
                 <tableViewController id="nxP-ei-n6N" customClass="PhotoSelectorTableViewController" sceneMemberID="viewController">
@@ -65,12 +67,14 @@
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Photo Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GkK-LX-vfN">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Photo Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GkK-LX-vfN">
+                                            <rect key="frame" x="10" y="2" width="93" height="22"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Photo Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ud-uz-ZWe">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Photo Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Ud-uz-ZWe">
+                                            <rect key="frame" x="10" y="24" width="111" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -78,9 +82,6 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <connections>
-                                    <segue destination="4Wd-Zq-qDW" kind="push" identifier="Photo" id="haf-gq-hqH"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -88,8 +89,11 @@
                             <outlet property="delegate" destination="nxP-ei-n6N" id="p2r-LI-zQr"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Photo Selector" id="95j-KY-nmB"/>
+                    <navigationItem key="navigationItem" title="Recent Photos" id="95j-KY-nmB"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <segue destination="4Wd-Zq-qDW" kind="push" identifier="Photo" id="Icb-jJ-Eep"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yle-vZ-yqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -103,29 +107,24 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yb2-Ur-wD7">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.5" maximumZoomScale="2" id="Yb2-Ur-wD7">
+                                <rect key="frame" x="-20" y="-20" width="360" height="495"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hdb-hc-zQb"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" id="hdb-hc-zQb">
+                                        <rect key="frame" x="20" y="20" width="320" height="455"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="hdb-hc-zQb" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="8T0-eH-trr"/>
-                                    <constraint firstItem="hdb-hc-zQb" firstAttribute="top" secondItem="Yb2-Ur-wD7" secondAttribute="top" constant="20" symbolic="YES" type="default" id="BVR-0c-hVQ"/>
-                                    <constraint firstItem="hdb-hc-zQb" firstAttribute="centerX" secondItem="Yb2-Ur-wD7" secondAttribute="centerX" type="default" id="E57-hb-lTU"/>
-                                    <constraint firstItem="hdb-hc-zQb" firstAttribute="leading" secondItem="Yb2-Ur-wD7" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="gk9-qP-WqM"/>
-                                    <constraint firstAttribute="trailing" secondItem="hdb-hc-zQb" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="kzE-YI-aAO"/>
-                                    <constraint firstItem="hdb-hc-zQb" firstAttribute="centerY" secondItem="Yb2-Ur-wD7" secondAttribute="centerY" type="default" id="uDL-SE-GDc"/>
-                                </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Yb2-Ur-wD7" firstAttribute="leading" secondItem="fXn-MB-VFw" secondAttribute="leading" constant="-20" id="1IH-Z9-ndh"/>
-                            <constraint firstItem="Yb2-Ur-wD7" firstAttribute="centerY" secondItem="fXn-MB-VFw" secondAttribute="centerY" type="default" id="En1-CW-wUS"/>
-                            <constraint firstItem="Yb2-Ur-wD7" firstAttribute="centerX" secondItem="fXn-MB-VFw" secondAttribute="centerX" type="default" id="kaQ-8B-tYZ"/>
-                            <constraint firstItem="Yb2-Ur-wD7" firstAttribute="top" secondItem="fXn-MB-VFw" secondAttribute="top" constant="-20" id="mas-lU-WAg"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Photo" id="7cd-0F-YPp"/>
+                    <connections>
+                        <outlet property="imageView" destination="hdb-hc-zQb" id="rxb-ve-Neo"/>
+                        <outlet property="scrollView" destination="Yb2-Ur-wD7" id="rDd-KZ-ufQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZf-wZ-8OZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -153,7 +152,6 @@
         <!--Navigation Controller - Top Places-->
         <scene sceneID="dI7-Na-BFv">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2zU-Pn-vxR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="eqC-9u-UYq" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Top Places" id="t2j-gY-jjc"/>
                     <toolbarItems/>
@@ -166,13 +164,13 @@
                         <segue destination="QLg-uc-rp7" kind="relationship" relationship="rootViewController" id="6zV-F6-vKw"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2zU-Pn-vxR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="748" y="-264"/>
         </scene>
         <!--Navigation Controller - Recent Photos-->
         <scene sceneID="9rU-Kz-u3N">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YLm-pE-tgQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="CZK-Do-9tw" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Recent Photos" id="Uwl-8a-Q3i"/>
                     <toolbarItems/>
@@ -186,30 +184,17 @@
                         <segue destination="nxP-ei-n6N" kind="relationship" relationship="rootViewController" id="Ev6-Ih-ZDl"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YLm-pE-tgQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="848" y="446"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="PhotoSelectorTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoSelectorTableViewController.h"/>
-        </class>
-        <class className="PhotoViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoViewController.h"/>
-        </class>
-        <class className="TopPlacesTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesTableViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="al0-mv-5qF"/>
+        <segue reference="Ev6-Ih-ZDl"/>
     </inferredMetricsTieBreakers>
 </document>
