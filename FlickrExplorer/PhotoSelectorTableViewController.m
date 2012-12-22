@@ -7,8 +7,7 @@
 //
 
 #import "PhotoSelectorTableViewController.h"
-#import "PhotoViewController.h" // segue to it
-#import "FlickrExplorerAppDelegate.h" // NSUserDefaults define keys
+#import "FlickrPhotoViewController.h" // segue to it
 #import "FlickrFetcher.h" // define keys
 
 #define PHOTO_TITLE_KEY FLICKR_PHOTO_TITLE
@@ -20,27 +19,12 @@
 
 @implementation PhotoSelectorTableViewController
 
-- (void)recentPhotos { // get recent photos NSUserDefaults preference
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults synchronize]; // make sure preferences are up-to-date
-    self.photos = [defaults objectForKey:RECENT_PHOTOS_KEY];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    if (!self.photos) {
-        [self recentPhotos]; // populate the list with recent photos instead
-    }
-    
+        
     if (self.splitViewController) { // keep selection on iPad
         self.clearsSelectionOnViewWillAppear = NO;
     }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-     // reset to nil so that it will correctly decide to update recents
-    self.photos = nil;
 }
 
 #pragma mark - Table view data source
@@ -51,15 +35,14 @@
     return [self.photos count]; // Number of rows is the number of photos
 }
 
-// Called when a cell is selected
+// Called to populate cells
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Photo";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-        
+    
     // get corresponding photo, in order from most recent to least recent
-    NSDictionary *photo = [self.photos objectAtIndex:[self.photos count] - 1 -
-                           indexPath.row];
+    NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
     
     id photoTitle = [photo objectForKey:PHOTO_TITLE_KEY];
     id photoDescription = [photo objectForKey:PHOTO_DESCRIPTION_KEY];
@@ -72,7 +55,8 @@
         photoTitle = @"No Title";
     }
     
-    if (!photoDescription || ![photoDescription isKindOfClass:[NSString class]]) {
+    if (!photoDescription || ![photoDescription isKindOfClass:[NSString class]])
+    {
         // ensure that the retrieved description meets all requirements
         photoDescription = @"";
     }
@@ -88,8 +72,7 @@
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.selectedPhoto = [self.photos objectAtIndex:[self.photos count] - 1 -
-                          indexPath.row];
+    self.selectedPhoto = [self.photos objectAtIndex:indexPath.row];
     [self performSegueWithIdentifier:@"Photo" sender:self];
 }
 
