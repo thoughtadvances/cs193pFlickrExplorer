@@ -51,7 +51,7 @@
             </objects>
             <point key="canvasLocation" x="1188" y="-264"/>
         </scene>
-        <!--Photo Selector Table View Controller - Recent Photos-->
+        <!--Photo Selector Table View Controller - Place Photos-->
         <scene sceneID="h04-68-XFq">
             <objects>
                 <tableViewController id="nxP-ei-n6N" customClass="PhotoSelectorTableViewController" sceneMemberID="viewController">
@@ -89,7 +89,7 @@
                             <outlet property="delegate" destination="nxP-ei-n6N" id="p2r-LI-zQr"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Recent Photos" id="95j-KY-nmB"/>
+                    <navigationItem key="navigationItem" title="Place Photos" id="95j-KY-nmB"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
                         <segue destination="4Wd-Zq-qDW" kind="push" identifier="Photo" id="Icb-jJ-Eep"/>
@@ -99,7 +99,7 @@
             </objects>
             <point key="canvasLocation" x="1616" y="-264"/>
         </scene>
-        <!--Recent Photos Selector Table View Controller-->
+        <!--Recent Photos Selector Table View Controller - Recent Photos-->
         <scene sceneID="EzG-uc-G9F">
             <objects>
                 <tableViewController id="zjn-iW-mhe" customClass="RecentPhotosSelectorTableViewController" sceneMemberID="viewController">
@@ -139,7 +139,7 @@
                             <outlet property="delegate" destination="zjn-iW-mhe" id="9fy-KI-OJv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="9TR-I2-9ev"/>
+                    <navigationItem key="navigationItem" title="Recent Photos" id="9TR-I2-9ev"/>
                     <connections>
                         <segue destination="yNH-Gd-2iC" kind="push" identifier="Photo" id="bgE-dR-j5k"/>
                     </connections>
@@ -269,27 +269,6 @@
             <point key="canvasLocation" x="2045" y="390"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="FlickrPhotoViewController" superclassName="PhotoViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoViewController.h"/>
-        </class>
-        <class className="FlickrTopPlacesTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrTopPlacesTableViewController.h"/>
-        </class>
-        <class className="PhotoSelectorTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoSelectorTableViewController.h"/>
-        </class>
-        <class className="PhotoViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="RecentPhotosSelectorTableViewController" superclassName="PhotoSelectorTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentPhotosSelectorTableViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

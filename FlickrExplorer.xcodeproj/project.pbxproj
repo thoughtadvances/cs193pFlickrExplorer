@@ -53,8 +53,8 @@
 		848A2F0A1684A310008E0062 /* FlickrTopPlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrTopPlacesTableViewController.m; sourceTree = "<group>"; };
 		848E284F1685743400A84B40 /* FlickrPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrPhotoViewController.h; sourceTree = "<group>"; };
 		848E28501685743400A84B40 /* FlickrPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrPhotoViewController.m; sourceTree = "<group>"; };
-		848E285216858A2D00A84B40 /* RecentPhotosSelectorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecentPhotosSelectorTableViewController.h; path = FlickrExplorer/RecentPhotosSelectorTableViewController.h; sourceTree = "<group>"; };
-		848E285316858A2D00A84B40 /* RecentPhotosSelectorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecentPhotosSelectorTableViewController.m; path = FlickrExplorer/RecentPhotosSelectorTableViewController.m; sourceTree = "<group>"; };
+		848E285216858A2D00A84B40 /* RecentPhotosSelectorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhotosSelectorTableViewController.h; sourceTree = "<group>"; };
+		848E285316858A2D00A84B40 /* RecentPhotosSelectorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentPhotosSelectorTableViewController.m; sourceTree = "<group>"; };
 		84F662681684A99A000CE17B /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
 		84F662691684A99A000CE17B /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -76,8 +76,6 @@
 		848A2ECD1684A0BB008E0062 = {
 			isa = PBXGroup;
 			children = (
-				848E285216858A2D00A84B40 /* RecentPhotosSelectorTableViewController.h */,
-				848E285316858A2D00A84B40 /* RecentPhotosSelectorTableViewController.m */,
 				848A2EE21684A0BC008E0062 /* FlickrExplorer */,
 				848A2F041684A141008E0062 /* FlickrFetcher */,
 				848A2EDB1684A0BB008E0062 /* Frameworks */,
@@ -108,6 +106,8 @@
 			children = (
 				8468C4D61684B27B0085107C /* PhotoSelectorTableViewController.h */,
 				8468C4D71684B27B0085107C /* PhotoSelectorTableViewController.m */,
+				848E285216858A2D00A84B40 /* RecentPhotosSelectorTableViewController.h */,
+				848E285316858A2D00A84B40 /* RecentPhotosSelectorTableViewController.m */,
 				848A2F091684A310008E0062 /* FlickrTopPlacesTableViewController.h */,
 				848A2F0A1684A310008E0062 /* FlickrTopPlacesTableViewController.m */,
 				84F662681684A99A000CE17B /* PhotoViewController.h */,
