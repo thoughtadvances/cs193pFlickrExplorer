@@ -48,17 +48,24 @@
     id photoDescription = [photo objectForKey:PHOTO_DESCRIPTION_KEY];
     
     // Set the cell text
-    if (!photoTitle || [photoTitle isEqualToString:@""] ||
-        ![photoTitle isKindOfClass:[NSString class]]) {
-        // ensure that the retrieved title meets all requirements to prevent
-        //  crash
-        photoTitle = @"No Title";
-    }
     
     if (!photoDescription || ![photoDescription isKindOfClass:[NSString class]])
     {
         // ensure that the retrieved description meets all requirements
         photoDescription = @"";
+    }
+    
+    if (!photoTitle || [photoTitle isEqualToString:@""] ||
+        ![photoTitle isKindOfClass:[NSString class]]) {
+        // ensure that the retrieved title meets all requirements to prevent
+        //  crash
+        photoTitle = photoDescription; // Make title the description
+        photoDescription = @""; // Title and description should not show same
+    }
+    
+    if ([photoTitle isEqualToString:@""]) {
+        // If also no description, then set standard title
+        photoTitle = @"Unknown";
     }
     
     cell.textLabel.text = photoTitle;
