@@ -21,7 +21,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-        
+    
     if (self.splitViewController) { // keep selection on iPad
         self.clearsSelectionOnViewWillAppear = NO;
     }
@@ -36,10 +36,13 @@
 }
 
 // Called to populate cells
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Photo";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView
+                             dequeueReusableCellWithIdentifier:CellIdentifier
+                             forIndexPath:indexPath];
     
     // get corresponding photo, in order from most recent to least recent
     NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
