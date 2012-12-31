@@ -152,15 +152,15 @@
         <scene sceneID="BW5-g5-ASE">
             <objects>
                 <viewController id="4Wd-Zq-qDW" customClass="FlickrPhotoViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fXn-MB-VFw">
+                    <view key="view" contentMode="redraw" id="fXn-MB-VFw">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.5" maximumZoomScale="2" id="Yb2-Ur-wD7">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" minimumZoomScale="0.20000000000000001" maximumZoomScale="2" id="Yb2-Ur-wD7">
                                 <rect key="frame" x="-20" y="-20" width="360" height="495"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="redraw" id="hdb-hc-zQb">
+                                    <imageView userInteractionEnabled="NO" contentMode="TopLeft" id="hdb-hc-zQb">
                                         <rect key="frame" x="20" y="20" width="320" height="455"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
@@ -241,15 +241,15 @@
         <scene sceneID="ddD-kl-1Tt">
             <objects>
                 <viewController id="yNH-Gd-2iC" customClass="FlickrPhotoViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="V6a-QX-u0R">
+                    <view key="view" contentMode="redraw" id="V6a-QX-u0R">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.5" maximumZoomScale="2" id="ERC-jV-K8S">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" minimumZoomScale="0.20000000000000001" maximumZoomScale="2" id="ERC-jV-K8S">
                                 <rect key="frame" x="-20" y="-20" width="360" height="495"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="redraw" id="JaF-gg-V82">
+                                    <imageView userInteractionEnabled="NO" contentMode="TopLeft" id="JaF-gg-V82">
                                         <rect key="frame" x="20" y="20" width="320" height="455"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
