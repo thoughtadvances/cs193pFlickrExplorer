@@ -27,7 +27,7 @@
     UIImage *photoImage = [UIImage imageWithData:photoData];
     
     self.image = photoImage; // set the image on screen
-    
+        
     // toolbar title = photo's title
     self.title = [self.photo objectForKey:FLICKR_PHOTO_TITLE];
     

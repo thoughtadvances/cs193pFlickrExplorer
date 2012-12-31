@@ -16,8 +16,6 @@
 @end
 
 @implementation FlickrTopPlacesTableViewController
-
-
 // Take an NSArray from Flickr API of top places and reorder it into an
 //  NSArray of NSDictionaries of
 + (NSArray *)makeArrayOfTopPlacesByCountry:(NSArray *)topPlaces {
@@ -83,14 +81,10 @@
     return [mutableSortedCountries copy];
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad { // get the top Places
     // FIXME: Fork this into a thread and show progress feedback
     self.countries = [FlickrTopPlacesTableViewController
                       makeArrayOfTopPlacesByCountry:[FlickrFetcher topPlaces]];
-    //    self.topPlaces = [FlickrFetcher topPlaces]; // get the topPlaces
-    //    NSLog(@"topPlaces organized = %@", [FlickrTopPlacesTableViewController
-    //                                        makeArrayOfTopPlacesByCountry:
-    //                                        self.topPlaces]);
     [super viewDidLoad];
 }
 
