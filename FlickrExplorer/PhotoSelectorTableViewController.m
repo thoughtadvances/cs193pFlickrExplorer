@@ -83,11 +83,19 @@
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedPhoto = [self.photos objectAtIndex:indexPath.row];
-    [self performSegueWithIdentifier:@"Photo" sender:self];
+    if (self.splitViewController) { // iPad only
+        FlickrPhotoViewController *detail =
+        [self.splitViewController.viewControllers lastObject];
+        [detail setPhoto:self.selectedPhoto];
+    }
+    if (!self.splitViewController) { // iPhone only
+        [self performSegueWithIdentifier:@"Photo" sender:self];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"Photo"]) {
+        // Send the new photo as the NSDictionary
         [segue.destinationViewController setPhoto:self.selectedPhoto];
     }
 }

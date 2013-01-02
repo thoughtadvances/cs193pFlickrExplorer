@@ -8,14 +8,39 @@
 
 #import "PhotoViewController.h"
 
-@interface PhotoViewController () <UIScrollViewDelegate>
+@interface PhotoViewController () <UIScrollViewDelegate,
+UISplitViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (nonatomic) IBOutlet UIToolbar *toolbar; // for spplitViewController
 @end
 
 @implementation PhotoViewController
 
 @synthesize imageView = _imageView;
+@synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
+
+// FIXME: Why doesn't this work?  Is it because it calls setNeedsDisplay before
+//  the image has finished loading?
+//- (void)setImage:(UIImage *)image {
+//    NSLog(@"Image has been changed to %@", self.image);
+//    [self.imageView setNeedsDisplay]; // update screen on photo change
+//}
+
+- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem {
+    if (_splitViewBarButtonItem != splitViewBarButtonItem) {
+        // Update only if the old is different from the new
+        NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
+        if (_splitViewBarButtonItem) { // Remove old button if it exists
+            [toolbarItems removeObject:_splitViewBarButtonItem];
+        }
+        if (splitViewBarButtonItem) { // Add new button if it exists
+            [toolbarItems insertObject:splitViewBarButtonItem atIndex:0];
+        }
+        self.toolbar.items = toolbarItems;
+        _splitViewBarButtonItem = splitViewBarButtonItem;
+    }
+}
 
 - (void)viewDidLoad
 {
