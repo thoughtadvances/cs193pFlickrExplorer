@@ -16,10 +16,12 @@
 
 @implementation FlickrPhotoViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
+//- (void)setPhoto:(NSDictionary *)photo {
+//    [self updatePhoto]; // get new image and set it in view
+//    _photo = photo;
+//}
+
+- (void)updatePhoto {
     // Get URL, download, and convert to UIImage
     NSURL *photoURL = [FlickrFetcher urlForPhoto:self.photo format:
                        FlickrPhotoFormatLarge];
@@ -27,10 +29,16 @@
     UIImage *photoImage = [UIImage imageWithData:photoData];
     
     self.image = photoImage; // set the image on screen
-        
+    
     // toolbar title = photo's title
     self.title = [self.photo objectForKey:FLICKR_PHOTO_TITLE];
-    
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self updatePhoto];
+        
 }
 
 - (void)viewDidAppear:(BOOL)animated { // save photo to NSUserDefaults
