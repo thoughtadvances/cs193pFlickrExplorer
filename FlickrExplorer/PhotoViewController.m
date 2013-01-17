@@ -20,12 +20,10 @@ UISplitViewControllerDelegate>
 @synthesize imageView = _imageView;
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 
-// FIXME: Why doesn't this work?  Is it because it calls setNeedsDisplay before
-//  the image has finished loading?
-//- (void)setImage:(UIImage *)image {
-//    NSLog(@"Image has been changed to %@", self.image);
-//    [self.imageView setNeedsDisplay]; // update screen on photo change
-//}
+- (void)setImage:(UIImage *)image {
+    _image = image;
+    [self updateImage];
+}
 
 - (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem {
     if (_splitViewBarButtonItem != splitViewBarButtonItem) {
@@ -49,11 +47,30 @@ UISplitViewControllerDelegate>
     self.scrollView.delegate = self; // I tell the scrollView what to do
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    // TODO: Set the photo size information so that as much as possible is shown
-    self.imageView.image = self.image; // set the image on screen
-    
+// FIXME: Scroll view bounds are not being calculated correctly.  It should not
+//  exceeed the current edge of the image
+// FIXME: The image is not zooming up to the specified magnification on iPad
+// FIXME: Why is the iPhone background black?
+// FIXME: Making the zoom higher on iPad scrollView just makes the photo's
+//  initial size smaller
+
+// TODO: Should not be necessary because the struts and springs are now set
+//- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+//    if (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
+//        toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+//        [self.scrollView setFrame:CGRectMake(0, self.toolbar.frame.size.height,
+//                                             self.view.frame.size.width,
+//                                             self.view.frame.size.height)];
+//    } else {
+//
+//    }
+//}
+
+- (void)updateImage {
+    self.imageView.image = self.image;
     // set bounds
+    // FIXME: Is this a good value?  Should the contentSize be set to the size
+    //  of the image?  The size of the image is fixed
     self.scrollView.contentSize = self.imageView.image.size;
     self.imageView.frame = CGRectMake(0, 0, self.imageView.image.size.width,
                                       self.imageView.image.size.height);
@@ -77,6 +94,15 @@ UISplitViewControllerDelegate>
     //  whitespace
     self.scrollView.zoomScale = scale;
     
+    [self.imageView setNeedsDisplay]; // update screen on UIImage change
+}
+
+//- (void)viewDidLayoutSubviews {
+//    [self updateImage];
+//}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self updateImage];
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {

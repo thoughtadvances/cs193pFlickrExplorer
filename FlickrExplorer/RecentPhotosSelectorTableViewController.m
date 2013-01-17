@@ -24,7 +24,6 @@
 - (void)viewWillAppear:(BOOL)animated { // update photos on every showing
     if (![[self recentPhotos] isEqualToArray:self.photos]) {
         self.photos = [self recentPhotos]; // get new recents
-        [self.tableView reloadData]; // show new recents
     }
 }
 

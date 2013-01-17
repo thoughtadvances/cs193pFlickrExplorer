@@ -80,9 +80,6 @@
 		848A2ECD1684A0BB008E0062 = {
 			isa = PBXGroup;
 			children = (
-				84F74F521691A6D70021864C /* RotatableViewController.h */,
-				84F74F531691A6D70021864C /* RotatableViewController.m */,
-				84F74F4C1691A5F80021864C /* SplitViewBarButtonItemPresenter.h */,
 				848A2EE21684A0BC008E0062 /* FlickrExplorer */,
 				848A2F041684A141008E0062 /* FlickrFetcher */,
 				848A2EDB1684A0BB008E0062 /* Frameworks */,
@@ -129,6 +126,7 @@
 		848A2EE31684A0BC008E0062 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8490C00216A57BA70001026A /* Split View Rotater */,
 				848A2EF71684A0BC008E0062 /* MainStoryboard_iPad.storyboard */,
 				848A2EF41684A0BC008E0062 /* MainStoryboard_iPhone.storyboard */,
 				848A2EEB1684A0BC008E0062 /* FlickrExplorerAppDelegate.h */,
@@ -154,6 +152,17 @@
 			);
 			name = FlickrFetcher;
 			path = FlickrExplorer/FlickrFetcher;
+			sourceTree = "<group>";
+		};
+		8490C00216A57BA70001026A /* Split View Rotater */ = {
+			isa = PBXGroup;
+			children = (
+				84F74F521691A6D70021864C /* RotatableViewController.h */,
+				84F74F531691A6D70021864C /* RotatableViewController.m */,
+				84F74F4C1691A5F80021864C /* SplitViewBarButtonItemPresenter.h */,
+			);
+			name = "Split View Rotater";
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

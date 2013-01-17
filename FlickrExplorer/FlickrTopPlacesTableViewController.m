@@ -11,11 +11,19 @@
 #import "PhotoSelectorTableViewController.h" // to be able to segue to it
 
 @interface FlickrTopPlacesTableViewController ()
+// TODO: Create a custom data Class TACountry which stores this more easily
+// Flickr countries presented in the table view
 @property (nonatomic, strong) NSArray *countries;
 @property (nonatomic, strong) NSDictionary *selectedPlace;
 @end
 
 @implementation FlickrTopPlacesTableViewController
+
+- (void)setCountries:(NSArray *)countries {
+    _countries = countries;
+    [self.tableView reloadData];
+}
+
 // Take an NSArray from Flickr API of top places and reorder it into an
 //  NSArray of NSDictionaries of
 + (NSArray *)makeArrayOfTopPlacesByCountry:(NSArray *)topPlaces {
@@ -43,7 +51,9 @@
         if (!inserted) { // create new country and add place
             NSMutableArray *places = [[NSMutableArray alloc] init];
             [places addObject:place];
-            NSMutableDictionary *newCountry = [NSMutableDictionary dictionaryWithObjectsAndKeys:topPlaceCountryName, @"name",
+            NSMutableDictionary *newCountry = [NSMutableDictionary
+                                               dictionaryWithObjectsAndKeys:
+                                               topPlaceCountryName, @"name",
                                                places, @"places", nil];
             [countries addObject:newCountry];
         }
@@ -104,7 +114,8 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:
 (NSInteger)section {
-    // The header for the section is the region name -- get this from the region at the section index.
+    // The header for the section is the region name -- get this from the region
+    //  at the section index.
     NSDictionary *country = [self.countries objectAtIndex:section];
     return [country objectForKey:@"name"];
 }

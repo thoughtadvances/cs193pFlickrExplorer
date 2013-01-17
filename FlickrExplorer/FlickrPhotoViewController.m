@@ -16,10 +16,10 @@
 
 @implementation FlickrPhotoViewController
 
-//- (void)setPhoto:(NSDictionary *)photo {
-//    [self updatePhoto]; // get new image and set it in view
-//    _photo = photo;
-//}
+- (void)setPhoto:(NSDictionary *)photo {
+    _photo = photo; // set new photo
+    [self updatePhoto]; // get new image and set it in the UIImageView
+}
 
 - (void)updatePhoto {
     // Get URL, download, and convert to UIImage
@@ -28,17 +28,21 @@
     NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
     UIImage *photoImage = [UIImage imageWithData:photoData];
     
-    self.image = photoImage; // set the image on screen
-    
     // toolbar title = photo's title
     self.title = [self.photo objectForKey:FLICKR_PHOTO_TITLE];
+    
+    self.image = photoImage;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self updatePhoto];
-        
+    // TODO: This should not be necessary because the setter will also do it
+    //  on iPhone
+//    if (self.navigationController) { // Show image on iPhone
+//        [self updatePhoto];
+//    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated { // save photo to NSUserDefaults

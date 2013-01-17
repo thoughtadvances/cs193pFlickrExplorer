@@ -12,6 +12,6 @@
 //  display these photos in a UITableViewController
 
 @interface PhotoSelectorTableViewController : UITableViewController
-// NSArray of NSDictionary photos information
+// NSArray of Flickr NSDictionary photo information
 @property (nonatomic, strong) NSArray *photos;
 @end

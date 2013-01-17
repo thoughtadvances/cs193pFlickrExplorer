@@ -51,7 +51,7 @@
             </objects>
             <point key="canvasLocation" x="1188" y="-264"/>
         </scene>
-        <!--Photo Selector Table View Controller - Place Photos-->
+        <!--Photo Selector Table View Controller-->
         <scene sceneID="h04-68-XFq">
             <objects>
                 <tableViewController id="nxP-ei-n6N" customClass="PhotoSelectorTableViewController" sceneMemberID="viewController">
@@ -89,7 +89,7 @@
                             <outlet property="delegate" destination="nxP-ei-n6N" id="p2r-LI-zQr"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Place Photos" id="95j-KY-nmB"/>
+                    <navigationItem key="navigationItem" id="95j-KY-nmB"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
                         <segue destination="4Wd-Zq-qDW" kind="push" identifier="Photo" id="Icb-jJ-Eep"/>
@@ -148,7 +148,7 @@
             </objects>
             <point key="canvasLocation" x="1616" y="390"/>
         </scene>
-        <!--Flickr Photo View Controller - Photo-->
+        <!--Flickr Photo View Controller-->
         <scene sceneID="BW5-g5-ASE">
             <objects>
                 <viewController id="4Wd-Zq-qDW" customClass="FlickrPhotoViewController" sceneMemberID="viewController">
@@ -169,7 +169,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Photo" id="7cd-0F-YPp"/>
+                    <navigationItem key="navigationItem" id="7cd-0F-YPp"/>
                     <connections>
                         <outlet property="imageView" destination="hdb-hc-zQb" id="rxb-ve-Neo"/>
                         <outlet property="scrollView" destination="Yb2-Ur-wD7" id="rDd-KZ-ufQ"/>
@@ -237,7 +237,7 @@
             </objects>
             <point key="canvasLocation" x="748" y="390"/>
         </scene>
-        <!--Flickr Photo View Controller - Photo-->
+        <!--Flickr Photo View Controller-->
         <scene sceneID="ddD-kl-1Tt">
             <objects>
                 <viewController id="yNH-Gd-2iC" customClass="FlickrPhotoViewController" sceneMemberID="viewController">
@@ -258,7 +258,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Photo" id="faG-Ci-mhK"/>
+                    <navigationItem key="navigationItem" id="faG-Ci-mhK"/>
                     <connections>
                         <outlet property="imageView" destination="JaF-gg-V82" id="MXj-MS-pwf"/>
                         <outlet property="scrollView" destination="ERC-jV-K8S" id="XMV-ff-4ak"/>
@@ -284,6 +284,7 @@
             <relationships>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
         </class>
         <class className="RecentPhotosSelectorTableViewController" superclassName="PhotoSelectorTableViewController">

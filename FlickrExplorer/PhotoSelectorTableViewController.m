@@ -19,6 +19,11 @@
 
 @implementation PhotoSelectorTableViewController
 
+- (void)setPhotos:(NSArray *)photos {
+    _photos = photos;
+    [self.tableView reloadData];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -60,8 +65,6 @@
     
     if (!photoTitle || [photoTitle isEqualToString:@""] ||
         ![photoTitle isKindOfClass:[NSString class]]) {
-        // ensure that the retrieved title meets all requirements to prevent
-        //  crash
         photoTitle = photoDescription; // Make title the description
         photoDescription = @""; // Title and description should not show same
     }
@@ -83,14 +86,11 @@
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedPhoto = [self.photos objectAtIndex:indexPath.row];
-    if (self.splitViewController) { // iPad only
+    if (self.splitViewController) { // iPad
         FlickrPhotoViewController *detail =
         [self.splitViewController.viewControllers lastObject];
         [detail setPhoto:self.selectedPhoto];
-    }
-    if (!self.splitViewController) { // iPhone only
-        [self performSegueWithIdentifier:@"Photo" sender:self];
-    }
+    } else [self performSegueWithIdentifier:@"Photo" sender:self]; // iPhone
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

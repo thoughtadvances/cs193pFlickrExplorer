@@ -4,47 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
-        <!--Flickr Photo View Controller-->
-        <scene sceneID="29Q-pl-8YI">
-            <objects>
-                <viewController id="AJl-MX-jdk" customClass="FlickrPhotoViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="mZP-VJ-4ck">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.5" maximumZoomScale="2" id="Jgl-wy-VLp">
-                                <rect key="frame" x="-20" y="-20" width="808" height="1044"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" id="HIX-32-y7g">
-                                        <rect key="frame" x="20" y="20" width="768" height="1004"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    </imageView>
-                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="9YR-A5-zNv">
-                                        <rect key="frame" x="20" y="20" width="808" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <items/>
-                                    </toolbar>
-                                </subviews>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <toolbarItems/>
-                    <connections>
-                        <outlet property="imageView" destination="HIX-32-y7g" id="5yV-cd-baP"/>
-                        <outlet property="scrollView" destination="Jgl-wy-VLp" id="Zvo-E6-no7"/>
-                        <outlet property="toolbar" destination="9YR-A5-zNv" id="mmb-IY-l85"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gZH-EK-cRZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2189" y="1212"/>
-        </scene>
-        <!--Rotatable View Controller-->
+        <!--Rotatable View Controller - Photo Selector-->
         <scene sceneID="6aL-fQ-zaE">
             <objects>
-                <navigationController id="tAX-LD-rMe" customClass="RotatableViewController" sceneMemberID="viewController">
+                <navigationController title="Photo Selector" id="tAX-LD-rMe" customClass="RotatableViewController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="I93-cF-cXl">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -63,7 +26,7 @@
                     <toolbarItems/>
                     <connections>
                         <segue destination="tAX-LD-rMe" kind="relationship" relationship="masterViewController" id="E51-yn-xHc"/>
-                        <segue destination="AJl-MX-jdk" kind="relationship" relationship="detailViewController" id="IRN-EL-WLz"/>
+                        <segue destination="pYn-cs-pZT" kind="relationship" relationship="detailViewController" id="Shk-jd-uz2"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oAo-KA-6W4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -234,7 +197,68 @@
             </objects>
             <point key="canvasLocation" x="3502" y="744"/>
         </scene>
+        <!--Flickr Photo View Controller-->
+        <scene sceneID="dsz-Vs-lyu">
+            <objects>
+                <viewController id="pYn-cs-pZT" customClass="FlickrPhotoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VcO-hE-aSI">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="HkP-FT-WUv">
+                                <rect key="frame" x="1" y="-2" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items/>
+                            </toolbar>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.20000000000000001" maximumZoomScale="3" id="MJ0-zQ-Kmk">
+                                <rect key="frame" x="-20" y="44" width="788" height="1236"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="LMn-Wn-Akz">
+                                        <rect key="frame" x="20" y="0.0" width="768" height="960"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="LMn-Wn-Akz" id="F9c-Cg-pn7"/>
+                        <outlet property="scrollView" destination="MJ0-zQ-Kmk" id="K2H-dm-TFc"/>
+                        <outlet property="toolbar" destination="HkP-FT-WUv" id="lQ6-2x-0ES"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tty-vh-zd4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2189" y="1261"/>
+        </scene>
     </scenes>
+    <classes>
+        <class className="FlickrPhotoViewController" superclassName="PhotoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoViewController.h"/>
+        </class>
+        <class className="FlickrTopPlacesTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrTopPlacesTableViewController.h"/>
+        </class>
+        <class className="PhotoSelectorTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoSelectorTableViewController.h"/>
+        </class>
+        <class className="PhotoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="RecentPhotosSelectorTableViewController" superclassName="PhotoSelectorTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentPhotosSelectorTableViewController.h"/>
+        </class>
+        <class className="RotatableViewController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RotatableViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
