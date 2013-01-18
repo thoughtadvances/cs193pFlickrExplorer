@@ -7,8 +7,8 @@
 //
 
 #import "FlickrPhotoViewController.h"
-#import "FlickrFetcher.h" // download photo
-#import "FlickrExplorerAppDelegate.h" // NSUserDefaults defines
+#import "FlickrFetcher.h"
+#import "FlickrExplorerAppDelegate.h"
 
 @interface FlickrPhotoViewController ()
 
@@ -17,38 +17,36 @@
 @implementation FlickrPhotoViewController
 
 - (void)setPhoto:(NSDictionary *)photo {
-    _photo = photo; // set new photo
-    [self updatePhoto]; // get new image and set it in the UIImageView
+    _photo = photo;
+    [self updatePhoto];
 }
 
-- (void)updatePhoto {
-    // Get URL, download, and convert to UIImage
-    NSURL *photoURL = [FlickrFetcher urlForPhoto:self.photo format:
-                       FlickrPhotoFormatLarge];
-    NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
-    UIImage *photoImage = [UIImage imageWithData:photoData];
-    
-    // toolbar title = photo's title
-    self.title = [self.photo objectForKey:FLICKR_PHOTO_TITLE];
-    
-    self.image = photoImage;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // TODO: This should not be necessary because the setter will also do it
-    //  on iPhone
-//    if (self.navigationController) { // Show image on iPhone
-//        [self updatePhoto];
-//    }
-    
+- (void)updatePhoto { // Download photo and set it
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
+                                        initWithActivityIndicatorStyle:
+                                        UIActivityIndicatorViewStyleGray];
+    [spinner startAnimating];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+                                              initWithCustomView:spinner];
+    dispatch_queue_t downloadQueue = dispatch_queue_create("downloader",
+                                                           NULL);
+    dispatch_async(downloadQueue, ^{
+        NSURL *photoURL = [FlickrFetcher urlForPhoto:self.photo format:
+                           FlickrPhotoFormatLarge];
+        NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIImage *photoImage = [UIImage imageWithData:photoData];
+            self.title = [self.photo objectForKey:FLICKR_PHOTO_TITLE];
+            self.image = photoImage;
+            self.navigationItem.rightBarButtonItem = nil;
+        });
+    });
 }
 
 - (void)viewDidAppear:(BOOL)animated { // save photo to NSUserDefaults
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize]; // make sure I'm up-to-date
-    NSArray *recentPhotos = [defaults objectForKey:RECENT_PHOTOS_KEY];
+    NSArray *recentPhotos = [defaults objectForKey:RECENT_PHOTOS];
     
     NSMutableArray *mutableRecentPhotos = [recentPhotos mutableCopy];
     
@@ -64,7 +62,7 @@
     }
     
     // Put back into preferences and write to disk
-    [defaults setObject:[mutableRecentPhotos copy] forKey:RECENT_PHOTOS_KEY];
+    [defaults setObject:[mutableRecentPhotos copy] forKey:RECENT_PHOTOS];
     [defaults synchronize];
 }
 

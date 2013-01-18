@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 ThoughtAdvances. All rights reserved.
 //
 
-#define RECENT_PHOTOS_KEY @"PhotoViewController.recentPhotos"
+#define RECENT_PHOTOS @"PhotoViewController.recentPhotos"
 
 #import <UIKit/UIKit.h>
 

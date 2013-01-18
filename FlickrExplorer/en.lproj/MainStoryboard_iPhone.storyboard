@@ -326,6 +326,7 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="IVg-iu-gCs" id="bE2-ri-W2N"/>
+                        <segue destination="yNH-Gd-2iC" kind="push" identifier="Photo" id="v2P-vH-cDu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LOt-6y-Sty" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -367,6 +368,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="v2P-vH-cDu"/>
         <segue reference="FoU-UR-Kcz"/>
     </inferredMetricsTieBreakers>
 </document>

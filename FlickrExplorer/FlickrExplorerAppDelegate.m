@@ -13,7 +13,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 [[NSArray alloc] init], RECENT_PHOTOS_KEY,
+                                 [[NSArray alloc] init], RECENT_PHOTOS,
                                  nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
     

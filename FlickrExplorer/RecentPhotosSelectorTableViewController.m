@@ -17,13 +17,14 @@
 
 - (NSArray *)recentPhotos { // get recent photos NSUserDefaults preference
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults synchronize]; // make sure preferences are up-to-date
-    return [defaults objectForKey:RECENT_PHOTOS_KEY];
+    [defaults synchronize];
+    return [defaults objectForKey:RECENT_PHOTOS];
 }
 
 - (void)viewWillAppear:(BOOL)animated { // update photos on every showing
-    if (![[self recentPhotos] isEqualToArray:self.photos]) {
-        self.photos = [self recentPhotos]; // get new recents
+    NSArray *recentPhotos = [self recentPhotos];
+    if (![recentPhotos isEqualToArray:self.photos]) {
+        self.photos = recentPhotos; // get new recents
     }
 }
 

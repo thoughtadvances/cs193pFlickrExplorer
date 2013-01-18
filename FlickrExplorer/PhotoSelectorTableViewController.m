@@ -10,9 +10,6 @@
 #import "FlickrPhotoViewController.h" // segue to it
 #import "FlickrFetcher.h" // define keys
 
-#define PHOTO_TITLE_KEY FLICKR_PHOTO_TITLE
-#define PHOTO_DESCRIPTION_KEY FLICKR_PHOTO_DESCRIPTION
-
 @interface PhotoSelectorTableViewController ()
 @property (nonatomic, strong) NSDictionary *selectedPhoto;
 @end
@@ -37,10 +34,9 @@
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 {
-    return [self.photos count]; // Number of rows is the number of photos
+    return [self.photos count];
 }
 
-// Called to populate cells
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -49,14 +45,13 @@
                              dequeueReusableCellWithIdentifier:CellIdentifier
                              forIndexPath:indexPath];
     
-    // get corresponding photo, in order from most recent to least recent
+    // most recent to least recent
     NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
     
-    id photoTitle = [photo objectForKey:PHOTO_TITLE_KEY];
-    id photoDescription = [photo objectForKey:PHOTO_DESCRIPTION_KEY];
+    id photoTitle = [photo objectForKey:FLICKR_PHOTO_TITLE];
+    id photoDescription = [photo objectForKey:FLICKR_PHOTO_DESCRIPTION];
     
     // Set the cell text
-    
     if (!photoDescription || ![photoDescription isKindOfClass:[NSString class]])
     {
         // ensure that the retrieved description meets all requirements

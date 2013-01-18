@@ -91,11 +91,30 @@
     return [mutableSortedCountries copy];
 }
 
-- (void)viewDidLoad { // get the top Places
-    // FIXME: Fork this into a thread and show progress feedback
+// FIXME: Why doesn't the spinner show up?  Is it because I have no network, so
+//  it completes the downloadQueue so quickly that the spinner is removed before
+- (void)getCountries {
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
+                                        initWithActivityIndicatorStyle:
+                                        UIActivityIndicatorViewStyleGray];
+    [spinner startAnimating];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+                                              initWithCustomView:spinner];
+    dispatch_queue_t downloadQueue = dispatch_queue_create("flickr downloader",
+                                                           NULL);
+    dispatch_async(downloadQueue, ^{
     self.countries = [FlickrTopPlacesTableViewController
                       makeArrayOfTopPlacesByCountry:[FlickrFetcher topPlaces]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.navigationItem.rightBarButtonItem = nil;
+        });
+    });
+}
+
+- (void)viewDidLoad { // get the top Places
+    // FIXME: Fork this into a thread and show progress feedback
     [super viewDidLoad];
+    [self getCountries];
 }
 
 #pragma mark - Table view data source
