@@ -7,38 +7,39 @@
 //
 
 #import "PhotoViewController.h"
+#import "IOSupport.h"
 
 @interface PhotoViewController () <UIScrollViewDelegate,
 UISplitViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (nonatomic) IBOutlet UIToolbar *toolbar; // for spplitViewController
+//@property (nonatomic) IBOutlet UIToolbar *toolbar;
 @end
 
 @implementation PhotoViewController
 
 @synthesize imageView = _imageView;
-@synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
+//@synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 
 - (void)setImage:(UIImage *)image {
     _image = image;
     [self updateImage];
 }
 
-- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem {
-    if (_splitViewBarButtonItem != splitViewBarButtonItem) {
-        // Update only if the old is different from the new
-        NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
-        if (_splitViewBarButtonItem) { // Remove old button if it exists
-            [toolbarItems removeObject:_splitViewBarButtonItem];
-        }
-        if (splitViewBarButtonItem) { // Add new button if it exists
-            [toolbarItems insertObject:splitViewBarButtonItem atIndex:0];
-        }
-        self.toolbar.items = toolbarItems;
-        _splitViewBarButtonItem = splitViewBarButtonItem;
-    }
-}
+//- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem {
+//    if (_splitViewBarButtonItem != splitViewBarButtonItem) {
+//        // Update only if the old is different from the new
+//        NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
+//        if (_splitViewBarButtonItem) { // Remove old button if it exists
+//            [toolbarItems removeObject:_splitViewBarButtonItem];
+//        }
+//        if (splitViewBarButtonItem) { // Add new button if it exists
+//            [toolbarItems insertObject:splitViewBarButtonItem atIndex:0];
+//        }
+//        self.toolbar.items = toolbarItems;
+//        _splitViewBarButtonItem = splitViewBarButtonItem;
+//    }
+//}
 
 - (void)viewDidLoad
 {
