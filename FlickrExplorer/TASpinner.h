@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TASpinner : NSObject
+@class TASpinner;
 
+//@protocol TASpinnerDelegate <NSObject>
+//@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+//@end
+
+@interface TASpinner : NSObject
++ (void)concurrentlyExecute:(void(^)(void))concurrentBlock
+    afterwardsExecuteInMain:(void(^)(void))mainBlock
+                   onSender:(id)sender;
+//@property (nonatomic, weak) id <TASpinnerDelegate> delegate;
 @end
