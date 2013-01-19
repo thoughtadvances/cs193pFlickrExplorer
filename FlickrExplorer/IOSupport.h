@@ -9,5 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface IOSupport : NSObject
-
++ (NSURL*)applicationDirectory; // URL of the application's directory
+// Array of all non-hidden URLs in scanDirectory
++ (NSArray*)arrayOfFileURLsInDirectory:(NSURL*)scanDirectory;
+// Total size of all files inside scanDirectory in MB
++ (double)sizeOfDirectory:(NSURL*)scanDirectory;
+// Path to the file accessed the longest time ago in scanDirectory
++ (NSURL*)oldestFileInDirectory:(NSURL*)scanDirectory;
 @end
