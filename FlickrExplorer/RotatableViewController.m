@@ -51,6 +51,7 @@
 
 #import "RotatableViewController.h"
 #import "SplitViewBarButtonItemPresenter.h"
+#import <Foundation/Foundation.h>
 
 @interface RotatableViewController ()
 
@@ -61,6 +62,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.splitViewController.delegate = self; // This is the delegate
+    NSLog(@"I am logging stuff.");
 }
 
 - (id <SplitViewBarButtonItemPresenter>)splitViewBarButtonItemPresenter {
