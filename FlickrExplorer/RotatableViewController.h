@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RotatableViewController : UINavigationController
+// Changing the master from a UITabBarController ot any other controller
+//  is as simple as changing the superclass below
+@interface RotatableViewController : UITabBarController
 <UISplitViewControllerDelegate>
 
 @end

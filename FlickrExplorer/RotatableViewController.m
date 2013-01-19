@@ -16,25 +16,22 @@
 
 // How to Use
 //  After importing the 3 files into your project:
-//  - Make your master UIViewController a member of class
-//      RotatableViewController
-//  - Add a UIToolbar IBOUtlet to the Class implementation of your detail
-//      UIViewController: @property (nonatomic) IBOutlet UIToolbar *toolbar;
-//  - Add a UIToolbar to your detail UIViewController's storyboard
-//  - Hook up the toolbar to this @property
-//  - Import the SplitViewBarButtonItemPresenter @protocol in the Class of your
-//      detail UIViewController: #import "SplitViewBarButtonItemPresenter.h"
-//  - Publicly declare that the Class of your detail UIViewController implements
-//      the @protocol: <SplitViewBarButtonItemPresenter>
-//  - Privately declare that the Class of your detail UIViewController is
-//      the UISplitViewController's delegate: <UISplitViewControllerDelegate>
-//  - Explicitly @synthesize splitViewBarButtonItem in the Class of the detail
-//      UIViewController:
+//  - Master: Make it an instane of RotatableViewController in the storyboard
+//  - Detail: Add a UIToolbar IBOUtlet to the implementation
+//      @property (nonatomic) IBOutlet UIToolbar *toolbar;
+//  - Detail: Add a UIToolbar in the storyboard and connect it to the IBOutlet
+//  - Detail: Import SplitViewBarButtonItemPresenter @protocol in header file
+//      #import "SplitViewBarButtonItemPresenter.h"
+//  - Deatil: Publicly declare @protocol implementation
+//      <SplitViewBarButtonItemPresenter>
+//  - Detail: Privately declare it is the delegate
+//      <UISplitViewControllerDelegate>
+//  - Detail: Explicitly @synthesize splitViewBarButtonItem
 //      @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 //  - Set a Title for the master UIViewController in the storyboard using
 //      XCode's Attributes Inspector in the storyboard.  This title is used
 //      as the button's text.  Or, do this programatically by setting
-//      self.title
+//      self.title.
 //  - Override the setter for the splitViewBarButtonItem so that it
 //      puts the barButtonItem in the toolbar.  Code should look like this:
 //- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem {
@@ -91,7 +88,7 @@
           withBarButtonItem:(UIBarButtonItem *)barButtonItem
        forPopoverController:(UIPopoverController *)pc {
     //
-    barButtonItem.title = self.title; // Title of the UIViewController
+    barButtonItem.title = self.title;
     [self splitViewBarButtonItemPresenter].splitViewBarButtonItem =
     barButtonItem;
 }
