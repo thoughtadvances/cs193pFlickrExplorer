@@ -163,11 +163,11 @@
             </objects>
             <point key="canvasLocation" x="1215" y="-2081"/>
         </scene>
-        <!--Navigation Controller - Recent Photos-->
+        <!--Navigation Controller-->
         <scene sceneID="Fe6-uU-Nvk">
             <objects>
                 <navigationController definesPresentationContext="YES" id="Rzu-Sp-qCL" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Recent Photos" id="hgG-qx-pyA"/>
+                    <tabBarItem key="tabBarItem" systemItem="recents" id="hgG-qx-pyA"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UPU-ai-Icv">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -300,11 +300,11 @@
             </objects>
             <point key="canvasLocation" x="-126" y="-1254"/>
         </scene>
-        <!--Navigation Controller - Top Places-->
+        <!--Navigation Controller-->
         <scene sceneID="8mN-eZ-CVe">
             <objects>
                 <navigationController id="mcO-Rh-OZd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Top Places" id="PeD-Wo-O2t"/>
+                    <tabBarItem key="tabBarItem" systemItem="featured" id="PeD-Wo-O2t"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cO1-4S-anr">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
