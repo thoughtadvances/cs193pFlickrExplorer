@@ -12,6 +12,10 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" style="gray" id="q3e-8K-9m1">
+                            <rect key="frame" x="0.0" y="66" width="320" height="20"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Place" textLabel="dib-n8-ZHM" detailTextLabel="IeW-eq-0Le" style="IBUITableViewCellStyleSubtitle" id="5xB-hl-vcW">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -42,8 +46,15 @@
                             <outlet property="delegate" destination="QLg-uc-rp7" id="vB4-eH-Lcx"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Top Places" id="q77-gU-iBl"/>
+                    <navigationItem key="navigationItem" title="Top Places" id="q77-gU-iBl">
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="xTx-dm-u9s">
+                            <connections>
+                                <segue destination="hvo-e3-moJ" kind="push" identifier="showMap" id="dXX-Hq-UfP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="spinner" destination="q3e-8K-9m1" id="436-s5-0EO"/>
                         <segue destination="nxP-ei-n6N" kind="push" identifier="PlacePhotos" id="u9S-W3-Asd"/>
                     </connections>
                 </tableViewController>
@@ -51,14 +62,18 @@
             </objects>
             <point key="canvasLocation" x="1188" y="-264"/>
         </scene>
-        <!--Photo Selector Table View Controller-->
+        <!--Flickr Photo Selector Table View Controller-->
         <scene sceneID="h04-68-XFq">
             <objects>
-                <tableViewController id="nxP-ei-n6N" customClass="PhotoSelectorTableViewController" sceneMemberID="viewController">
+                <tableViewController id="nxP-ei-n6N" customClass="FlickrPhotoSelectorTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="i7o-VM-B9D">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" style="gray" id="9eP-js-Zjn">
+                            <rect key="frame" x="0.0" y="66" width="320" height="20"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo" textLabel="GkK-LX-vfN" detailTextLabel="4Ud-uz-ZWe" style="IBUITableViewCellStyleSubtitle" id="p93-iP-edt">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -99,7 +114,8 @@
                     </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <segue destination="4Wd-Zq-qDW" kind="push" identifier="Photo" id="Icb-jJ-Eep"/>
+                        <outlet property="spinner" destination="9eP-js-Zjn" id="84S-W8-z9J"/>
+                        <segue destination="4Wd-Zq-qDW" kind="push" identifier="showPhoto" id="Icb-jJ-Eep"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yle-vZ-yqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -114,6 +130,10 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" style="gray" id="BBm-9b-4bL">
+                            <rect key="frame" x="0.0" y="66" width="320" height="20"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo" textLabel="vG9-yX-742" detailTextLabel="5lF-yq-sRR" style="IBUITableViewCellStyleSubtitle" id="x6O-OI-ixm">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -154,7 +174,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="yNH-Gd-2iC" kind="push" identifier="Photo" id="bgE-dR-j5k"/>
+                        <outlet property="spinner" destination="BBm-9b-4bL" id="NFJ-EW-NAT"/>
+                        <segue destination="yNH-Gd-2iC" kind="push" identifier="showPhoto" id="bgE-dR-j5k"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tsj-I8-RRa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -177,6 +198,10 @@
                                         <rect key="frame" x="20" y="20" width="320" height="455"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="whiteLarge" id="rzi-S1-xqC">
+                                        <rect key="frame" x="162" y="229" width="37" height="37"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </activityIndicatorView>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -186,6 +211,7 @@
                     <connections>
                         <outlet property="imageView" destination="hdb-hc-zQb" id="rxb-ve-Neo"/>
                         <outlet property="scrollView" destination="Yb2-Ur-wD7" id="rDd-KZ-ufQ"/>
+                        <outlet property="spinner" destination="rzi-S1-xqC" id="4gI-ZI-pL8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZf-wZ-8OZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -204,14 +230,24 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="DdJ-R4-a6e">
+                                <rect key="frame" x="42" y="392" width="235" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Normal"/>
+                                    <segment title="Satellite"/>
+                                    <segment title="Hybrid"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Yqx-Uh-gHu"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="mapTypeSelector" destination="DdJ-R4-a6e" id="h11-04-xlg"/>
                         <outlet property="mapView" destination="ATZ-5M-dzi" id="hv3-q8-Zdk"/>
-                        <segue destination="4Wd-Zq-qDW" kind="push" identifier="Photo" id="FoU-UR-Kcz"/>
+                        <segue destination="4Wd-Zq-qDW" kind="push" identifier="showPhoto" id="FoU-UR-Kcz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pcG-yr-Ct5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -292,6 +328,10 @@
                                         <rect key="frame" x="20" y="20" width="320" height="455"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="whiteLarge" id="4QQ-t9-6pD">
+                                        <rect key="frame" x="162" y="229" width="37" height="37"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </activityIndicatorView>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -301,6 +341,7 @@
                     <connections>
                         <outlet property="imageView" destination="JaF-gg-V82" id="MXj-MS-pwf"/>
                         <outlet property="scrollView" destination="ERC-jV-K8S" id="XMV-ff-4ak"/>
+                        <outlet property="spinner" destination="4QQ-t9-6pD" id="k4Z-Ii-8oY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jR2-K1-UP3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -319,14 +360,24 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
+                            <segmentedControl opaque="NO" contentMode="redraw" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="e5s-XP-HFG">
+                                <rect key="frame" x="42" y="392" width="235" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Normal"/>
+                                    <segment title="Satellite"/>
+                                    <segment title="Hybrid"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="iz5-6y-dcL"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="mapTypeSelector" destination="e5s-XP-HFG" id="wmI-bc-rAz"/>
                         <outlet property="mapView" destination="IVg-iu-gCs" id="bE2-ri-W2N"/>
-                        <segue destination="yNH-Gd-2iC" kind="push" identifier="Photo" id="v2P-vH-cDu"/>
+                        <segue destination="yNH-Gd-2iC" kind="push" identifier="showPhoto" id="v2P-vH-cDu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LOt-6y-Sty" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -335,30 +386,39 @@
         </scene>
     </scenes>
     <classes>
+        <class className="FlickrPhotoSelectorTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoSelectorTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
         <class className="FlickrPhotoViewController" superclassName="PhotoViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
         </class>
         <class className="FlickrTopPlacesTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrTopPlacesTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
         </class>
         <class className="MapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
             <relationships>
+                <relationship kind="outlet" name="mapTypeSelector" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
-        </class>
-        <class className="PhotoSelectorTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoSelectorTableViewController.h"/>
         </class>
         <class className="PhotoViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
         </class>
-        <class className="RecentPhotosSelectorTableViewController" superclassName="PhotoSelectorTableViewController">
+        <class className="RecentPhotosSelectorTableViewController" superclassName="FlickrPhotoSelectorTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentPhotosSelectorTableViewController.h"/>
         </class>
     </classes>
@@ -368,7 +428,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="v2P-vH-cDu"/>
+        <segue reference="dXX-Hq-UfP"/>
         <segue reference="FoU-UR-Kcz"/>
+        <segue reference="v2P-vH-cDu"/>
     </inferredMetricsTieBreakers>
 </document>
