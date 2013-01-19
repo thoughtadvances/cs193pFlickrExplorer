@@ -8,31 +8,26 @@
 
 #import "DetailViewController.h"
 
-@interface DetailViewController ()
-
+@interface DetailViewController () <UISplitViewControllerDelegate>
 @end
 
 @implementation DetailViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+@synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
+
+- (void)setSplitViewBarButtonItem:(UIBarButtonItem*)splitViewBarButtonItem {
+    if (_splitViewBarButtonItem != splitViewBarButtonItem) {
+        if (splitViewBarButtonItem) {
+            [self.navigationItem setLeftBarButtonItem:splitViewBarButtonItem];
+        }
+        _splitViewBarButtonItem = splitViewBarButtonItem;
     }
-    return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    NSLog(@"viewDidLoad called");
+    self.navigationItem.leftItemsSupplementBackButton = YES;
 }
 
 @end

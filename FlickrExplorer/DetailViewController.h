@@ -6,8 +6,15 @@
 //  Copyright (c) 2013 ThoughtAdvances. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+// A generic class to be used as the detail view controller of a
+//  UISplitViewController so that it does the toolbar button dance properly
+// If your root detail UIViewController is not a UINavigationController, then
+//  replace the below superclass with the class of your root detail controller
 
-@interface DetailViewController : UIViewController
+#import <UIKit/UIKit.h>
+#import "SplitViewBarButtonItemPresenter.h"
+
+@interface DetailViewController : UINavigationController
+<SplitViewBarButtonItemPresenter>
 
 @end
