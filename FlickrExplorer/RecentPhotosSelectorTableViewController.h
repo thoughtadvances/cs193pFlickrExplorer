@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 ThoughtAdvances. All rights reserved.
 //
 
-#import "PhotoSelectorTableViewController.h"
+#import "FlickrPhotoSelectorTableViewController.h"
 
 @interface RecentPhotosSelectorTableViewController :
-PhotoSelectorTableViewController
+FlickrPhotoSelectorTableViewController
 @end

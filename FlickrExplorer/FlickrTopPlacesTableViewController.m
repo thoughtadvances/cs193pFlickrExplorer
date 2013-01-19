@@ -7,14 +7,16 @@
 //
 
 #import "FlickrTopPlacesTableViewController.h"
-#import "FlickrFetcher.h" // to be able to get data
-#import "PhotoSelectorTableViewController.h" // to be able to segue to it
+#import "FlickrFetcher.h"
+#import "FlickrPhotoSelectorTableViewController.h"
+#import "MapViewController.h"
 
 @interface FlickrTopPlacesTableViewController ()
 // TODO: Create a custom data Class TACountry which stores this more easily
 // Flickr countries presented in the table view
 @property (nonatomic, strong) NSArray *countries;
 @property (nonatomic, strong) NSDictionary *selectedPlace;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @end
 
 @implementation FlickrTopPlacesTableViewController
@@ -94,26 +96,23 @@
 // FIXME: Why doesn't the spinner show up?  Is it because I have no network, so
 //  it completes the downloadQueue so quickly that the spinner is removed before
 - (void)getCountries {
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
-                                        initWithActivityIndicatorStyle:
-                                        UIActivityIndicatorViewStyleGray];
-    [spinner startAnimating];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-                                              initWithCustomView:spinner];
-    dispatch_queue_t downloadQueue = dispatch_queue_create("flickr downloader",
+    [self.spinner startAnimating];
+    dispatch_queue_t downloadQueue = dispatch_queue_create("downloader",
                                                            NULL);
     dispatch_async(downloadQueue, ^{
-    self.countries = [FlickrTopPlacesTableViewController
-                      makeArrayOfTopPlacesByCountry:[FlickrFetcher topPlaces]];
+        self.countries = [FlickrTopPlacesTableViewController
+                          makeArrayOfTopPlacesByCountry:
+                          [FlickrFetcher topPlaces]];
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.navigationItem.rightBarButtonItem = nil;
+            [self.spinner stopAnimating];
         });
     });
 }
 
 - (void)viewDidLoad { // get the top Places
-    // FIXME: Fork this into a thread and show progress feedback
     [super viewDidLoad];
+    self.spinner.hidesWhenStopped = YES;
+    self.splitViewController.presentsWithGesture = NO;
     [self getCountries];
 }
 
@@ -190,20 +189,22 @@
     self.selectedPlace = [places objectAtIndex:indexPath.row];
     // This segue must be manual because otherwise the segue is called
     //      before the indexPath is updated
+    // TODO: Can this be put in the storyboard by creating an auto segue from
+    //  the dnamic table cell prototype to the destination UIViewController?
     [self performSegueWithIdentifier:@"PlacePhotos" sender:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // go to the
     if ([segue.identifier isEqualToString:@"PlacePhotos"]) {
-        // Get photo information for selected place and send to destination
-        [segue.destinationViewController setPhotos:
-         [FlickrFetcher photosInPlace:self.selectedPlace maxResults:5]];
-        // Title should be the location of the photos
         [segue.destinationViewController setTitle:[self.selectedPlace
                                                    objectForKey:
                                                    FLICKR_PLACE_NAME]];
     }
+    if ([segue.identifier isEqualToString:@"showMap"]) {
+        [segue.destinationViewController setAnnotations:self.countries];
+    }
+    else NSLog(@"Unidentified segue of identifier %@ called", segue.identifier);
 }
 
 @end

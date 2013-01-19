@@ -9,38 +9,80 @@
 #import "FlickrPhotoViewController.h"
 #import "FlickrFetcher.h"
 #import "FlickrExplorerAppDelegate.h"
+#import "IOSupport.h"
 
 @interface FlickrPhotoViewController ()
-
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @end
 
 @implementation FlickrPhotoViewController
 
 - (void)setPhoto:(NSDictionary *)photo {
     _photo = photo;
+    NSLog(@"FlickPhotoView's image is %@", self.photo);
     [self updatePhoto];
 }
 
+- (void)storeFlickrPhotoData:(NSData*)data {
+    dispatch_queue_t storageQueue = dispatch_queue_create("storage",
+                                                          NULL);
+    dispatch_async(storageQueue, ^{
+        NSFileManager *defaultManager = [NSFileManager defaultManager];
+        NSURL* applicationDirectory = [IOSupport applicationDirectory];
+        NSString *photoID = [self.photo objectForKey:FLICKR_PHOTO_ID];
+        NSString *filePath = [NSString stringWithFormat:@"%@/%@",
+                              applicationDirectory, photoID];
+        double size = [IOSupport sizeOfDirectory:[NSURL URLWithString:filePath]];
+        if (size > 10) { // delete oldest accessed file
+            NSURL *oldFile = [IOSupport
+                              oldestFileInDirectory:applicationDirectory];
+            [defaultManager removeItemAtURL:oldFile error:NULL];
+        }
+        [defaultManager createFileAtPath:filePath contents:data
+                              attributes:NULL];
+    });
+}
+
 - (void)updatePhoto { // Download photo and set it
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
-                                        initWithActivityIndicatorStyle:
-                                        UIActivityIndicatorViewStyleGray];
-    [spinner startAnimating];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-                                              initWithCustomView:spinner];
+    [self.spinner startAnimating];
     dispatch_queue_t downloadQueue = dispatch_queue_create("downloader",
                                                            NULL);
+    
     dispatch_async(downloadQueue, ^{
-        NSURL *photoURL = [FlickrFetcher urlForPhoto:self.photo format:
-                           FlickrPhotoFormatLarge];
-        NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL cached = NO;
+        NSData *photoData;
+        NSString *photoID = [self.photo objectForKey:FLICKR_PHOTO_ID];
+        NSArray *URLs = [IOSupport arrayOfFileURLsInDirectory:
+                         [IOSupport applicationDirectory]];
+        for (id URL in URLs) { // Is it locally stored?
+            if ([URL isKindOfClass:[NSURL class]]) {
+                NSString *filename;
+                [URL getResourceValue:&filename forKey:NSURLNameKey error:NULL];
+                if ([filename isEqualToString:photoID]) {
+                    photoData = [NSData dataWithContentsOfURL:URL];
+                    cached = YES;
+                }
+            }
+        }
+        if (!cached) { // If not, then download
+            NSURL *photoURL = [FlickrFetcher urlForPhoto:self.photo format:
+                               FlickrPhotoFormatLarge];
+            photoData = [NSData dataWithContentsOfURL:photoURL];
+            [self storeFlickrPhotoData:photoData];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{ // Display
             UIImage *photoImage = [UIImage imageWithData:photoData];
             self.title = [self.photo objectForKey:FLICKR_PHOTO_TITLE];
             self.image = photoImage;
-            self.navigationItem.rightBarButtonItem = nil;
+            [self.spinner stopAnimating];
         });
     });
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.spinner.hidesWhenStopped = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated { // save photo to NSUserDefaults

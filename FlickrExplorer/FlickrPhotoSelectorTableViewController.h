@@ -1,5 +1,5 @@
 //
-//  PhotoSelectorTableViewController.h
+//  FlickrPhotoSelectorTableViewController.h
 //  FlickrExplorer
 //
 //  Created by admin on 21/D/12.
@@ -11,7 +11,9 @@
 // Take an NSArray of NSDictionaries containing information about photos and
 //  display these photos in a UITableViewController
 
-@interface PhotoSelectorTableViewController : UITableViewController
+@interface FlickrPhotoSelectorTableViewController : UITableViewController
 // NSArray of Flickr NSDictionary photo information
 @property (nonatomic, strong) NSArray *photos;
+@property (nonatomic, strong) NSDictionary *place;
+@property (nonatomic, strong) NSDictionary *selectedPhoto;
 @end
