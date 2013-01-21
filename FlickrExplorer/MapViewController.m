@@ -53,15 +53,22 @@
     return view;
 }
 
-- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view
+calloutAccessoryControlTapped:(UIControl *)control {
     [self performSegueWithIdentifier:@"showMapPhoto" sender:view.annotation];
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:
 (MKAnnotationView *)view {
-    UIImage *image = [self.delegate mapViewController:self
-                                   imageForAnnotation:view.annotation];
-    [(UIImageView *)view.leftCalloutAccessoryView setImage:image];
+    dispatch_queue_t downloadQueue = dispatch_queue_create("downloader",
+                                                           NULL);
+    dispatch_async(downloadQueue, ^{
+        UIImage *image = [self.delegate mapViewController:self
+                                       imageForAnnotation:view.annotation];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [(UIImageView *)view.leftCalloutAccessoryView setImage:image];
+        });
+    });
 }
 
 - (void)setMapType {
@@ -79,6 +86,18 @@
     [self.mapTypeSelector addTarget:self.mapView
                              action:@selector(setMapType:)
                    forControlEvents:UIControlEventValueChanged];
+    if (self.splitViewController) {
+        UIViewController* master = [self.splitViewController.viewControllers
+                                    objectAtIndex:0];
+        if ([master isKindOfClass:[UITabBarController class]]) {
+            master = [(UITabBarController*)master selectedViewController];
+        }
+        if ([master isKindOfClass:[UINavigationController class]]) {
+            master = [(UINavigationController*)master topViewController];
+        }
+        self.title = [master.navigationItem.title
+                      stringByAppendingString:@" Map"];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -114,7 +133,8 @@
     MKMapRect finalRegion = {MKMapPointForCoordinate(center),
         MKMapSizeMake(width, height)};
     [self.mapView setVisibleMapRect:finalRegion
-                        edgePadding:UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0) animated:NO];
+                        edgePadding:UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0)
+                           animated:NO];
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
@@ -127,16 +147,8 @@
         (FlickrPhotoAnnotation *)sender;
         [segue.destinationViewController setPhoto:flickrAnnotation.photo];
     }
-    else if ([segue.identifier isEqualToString:@"showTablePhoto"]) {
-        NSLog(@"I got to MapViewController's prepareForSegue method");
-        NSLog(@"Class of sender is %@", [sender class]);
-        if ([sender isKindOfClass:[FlickrPhotoSelectorTableViewController
-                                   class]]) {
-            NSLog(@"sender is of the right type");
-        }
+    else if ([segue.identifier isEqualToString:@"showTablePhoto"])
         [segue.destinationViewController setPhoto:[sender selectedPhoto]];
-        NSLog(@"Successfuly set the destination's photo");
-    }
 }
 
 @end

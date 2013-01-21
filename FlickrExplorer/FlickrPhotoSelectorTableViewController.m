@@ -58,22 +58,10 @@
 
 - (UIImage *)mapViewController:(MapViewController *)sender
             imageForAnnotation:(id<MKAnnotation>)annotation {
-    dispatch_queue_t downloadQueue = dispatch_queue_create("downloader",
-                                                           NULL);
     FlickrPhotoAnnotation *flickrAnnotation = (FlickrPhotoAnnotation *)annotation;
-    
-    // FIXME: How to do dispatch_async inside functions which do not have a void
-    //  return value?
-    
-    //    dispatch_async(downloadQueue, ^{
     NSURL *url = [FlickrFetcher urlForPhoto:flickrAnnotation.photo format:
                   FlickrPhotoFormatSquare];
     NSData *data = [NSData dataWithContentsOfURL:url];
-    NSLog(@"dataWithContentsOfURL called");
-    //        dispatch_async(dispatch_get_main_queue(), ^{
-    //            return data ? [UIImage imageWithData:data] : nil;
-    //        });
-    //    });
     return data ? [UIImage imageWithData:data] : nil;
 }
 
