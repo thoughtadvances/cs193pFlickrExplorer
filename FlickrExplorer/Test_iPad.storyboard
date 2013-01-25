@@ -7,7 +7,7 @@
         <!--Recent Photos Selector Table View Controller - Recent Photos-->
         <scene sceneID="uDR-Bq-tE5">
             <objects>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="g1O-Xn-PTA" customClass="RecentPhotosSelectorTableViewController" sceneMemberID="viewController">
+                <tableViewController title="Recent Photos" clearsSelectionOnViewWillAppear="NO" id="g1O-Xn-PTA" customClass="RecentPhotosSelectorTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="8HX-AX-Fno">
                         <rect key="frame" x="0.0" y="64" width="320" height="739"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -17,11 +17,11 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo" textLabel="QbZ-Su-LGX" detailTextLabel="33j-zp-nPv" style="IBUITableViewCellStyleSubtitle" id="OEn-HN-ae3">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo" textLabel="QbZ-Su-LGX" detailTextLabel="33j-zp-nPv" style="IBUITableViewCellStyleSubtitle" id="OEn-HN-ae3">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QbZ-Su-LGX">
@@ -59,7 +59,7 @@
         <!--Flickr Top Places Table View Controller - Top Places-->
         <scene sceneID="e1D-oL-6y6">
             <objects>
-                <tableViewController id="jFM-eR-1JI" customClass="FlickrTopPlacesTableViewController" sceneMemberID="viewController">
+                <tableViewController title="Top Places" id="jFM-eR-1JI" customClass="FlickrTopPlacesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="rik-VV-xFI">
                         <rect key="frame" x="0.0" y="64" width="320" height="739"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -103,7 +103,7 @@
                     <navigationItem key="navigationItem" title="Top Places" id="bfV-yH-hyf"/>
                     <connections>
                         <outlet property="spinner" destination="Qc1-xB-Iw0" id="9sB-R2-hXu"/>
-                        <segue destination="65G-et-8PM" kind="push" id="AFV-1E-30Y"/>
+                        <segue destination="65G-et-8PM" kind="push" identifier="PlacePhotos" id="AFV-1E-30Y"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Pt-tn-fub" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -123,11 +123,11 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo" textLabel="lIX-eQ-jIh" detailTextLabel="2nC-IO-MSg" style="IBUITableViewCellStyleSubtitle" id="yVN-ka-BSM">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo" textLabel="lIX-eQ-jIh" detailTextLabel="2nC-IO-MSg" style="IBUITableViewCellStyleSubtitle" id="yVN-ka-BSM">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lIX-eQ-jIh">
@@ -163,6 +163,53 @@
             </objects>
             <point key="canvasLocation" x="1215" y="-2081"/>
         </scene>
+        <!--Segmented View Controller-->
+        <scene sceneID="999-h6-0hs">
+            <objects>
+                <viewController id="nFF-h6-ryi" customClass="SegmentedViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EQ3-34-4YV">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="1Se-9s-3k9">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="B0k-p0-9j5"/>
+                                    <barButtonItem style="plain" id="4IS-ka-lh6">
+                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="tyh-Wj-PFE">
+                                            <rect key="frame" x="303" y="7" width="161" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <segments>
+                                                <segment title="Map"/>
+                                                <segment title="Photo"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="segmentChanged:" destination="nFF-h6-ryi" eventType="valueChanged" id="jO8-fh-BKV"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="bWj-Ac-veX"/>
+                                </items>
+                            </toolbar>
+                            <containerView contentMode="scaleToFill" id="FA6-tt-1fz">
+                                <rect key="frame" x="0.0" y="44" width="768" height="960"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="contentView" destination="FA6-tt-1fz" id="McN-fF-3wq"/>
+                        <outlet property="segmentedControl" destination="tyh-Wj-PFE" id="TQ4-og-uEA"/>
+                        <outlet property="toolbar" destination="1Se-9s-3k9" id="7No-fw-gJe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IYf-s8-GcY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-126" y="-136"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fe6-uU-Nvk">
             <objects>
@@ -185,27 +232,28 @@
                 <splitViewController id="IbQ-ep-8FD" sceneMemberID="viewController">
                     <toolbarItems/>
                     <connections>
-                        <segue destination="oZY-mv-SNG" kind="relationship" relationship="detailViewController" id="o30-nj-7qq"/>
                         <segue destination="1jg-qi-CxE" kind="relationship" relationship="masterViewController" id="7CM-km-6r0"/>
+                        <segue destination="nFF-h6-ryi" kind="relationship" relationship="detailViewController" id="Y7w-QT-tHJ"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Fe-o4-idc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1108" y="-747"/>
         </scene>
-        <!--Map View Controller-->
+        <!--Map View Controller - Map-->
         <scene sceneID="duY-Mu-ffu">
             <objects>
-                <viewController id="Isu-AD-f1j" customClass="MapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" id="Isu-AD-f1j" customClass="MapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Hq-2l-YUU">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="2q7-Yq-ZPO">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="dnA-KZ-NS4">
-                                <rect key="frame" x="249" y="897" width="270" height="44"/>
+                                <rect key="frame" x="249" y="941" width="270" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <segments>
                                     <segment title="Normal"/>
@@ -216,31 +264,31 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Map" id="FxU-Ge-Ubc"/>
                     <navigationItem key="navigationItem" id="cPa-9D-o2t"/>
                     <connections>
                         <outlet property="mapTypeSelector" destination="dnA-KZ-NS4" id="a5v-jV-1ML"/>
                         <outlet property="mapView" destination="2q7-Yq-ZPO" id="S3X-Aj-j28"/>
-                        <segue destination="SMR-q4-wzG" kind="push" identifier="showTablePhoto" id="bDa-yh-u6P"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Bc-LQ-Ul4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="806" y="-128"/>
+            <point key="canvasLocation" x="760" y="-136"/>
         </scene>
-        <!--Flickr Photo View Controller-->
+        <!--Flickr Photo View Controller - Photo-->
         <scene sceneID="0ZY-KN-oSK">
             <objects>
-                <viewController id="SMR-q4-wzG" customClass="FlickrPhotoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PhotoViewController" id="SMR-q4-wzG" customClass="FlickrPhotoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jw3-nm-jRG">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="wNC-hI-JZq">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="hbS-Fu-VTi">
-                                        <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="whiteLarge" id="7f7-d6-IZv">
@@ -252,6 +300,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Photo" id="w61-r5-Ecw"/>
                     <navigationItem key="navigationItem" id="jKA-cc-A28"/>
                     <connections>
                         <outlet property="imageView" destination="hbS-Fu-VTi" id="tY4-tS-8LW"/>
@@ -261,25 +310,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gBA-D1-0LA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1701" y="-128"/>
-        </scene>
-        <!--Detail View Controller-->
-        <scene sceneID="FT8-I6-jpa">
-            <objects>
-                <navigationController id="oZY-mv-SNG" customClass="DetailViewController" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vo4-YC-XMj">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Isu-AD-f1j" kind="relationship" relationship="rootViewController" id="ORe-8h-cyq"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mpf-Mx-gRy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-126" y="-128"/>
+            <point key="canvasLocation" x="1643" y="-136"/>
         </scene>
         <!--Rotatable View Controller-->
         <scene sceneID="uOR-oD-6za">
@@ -300,10 +331,10 @@
             </objects>
             <point key="canvasLocation" x="-126" y="-1254"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller - Test2-->
         <scene sceneID="8mN-eZ-CVe">
             <objects>
-                <navigationController id="mcO-Rh-OZd" sceneMemberID="viewController">
+                <navigationController title="Test2" id="mcO-Rh-OZd" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="featured" id="PeD-Wo-O2t"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cO1-4S-anr">
@@ -321,8 +352,11 @@
         </scene>
     </scenes>
     <classes>
-        <class className="DetailViewController" superclassName="UINavigationController">
+        <class className="DetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
         </class>
         <class className="FlickrPhotoSelectorTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoSelectorTableViewController.h"/>
@@ -361,6 +395,14 @@
         </class>
         <class className="RotatableViewController" superclassName="UITabBarController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RotatableViewController.h"/>
+        </class>
+        <class className="SegmentedViewController" superclassName="DetailViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SegmentedViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="contentView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
