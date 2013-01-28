@@ -11,9 +11,9 @@
 @interface SegmentedViewController ()
 //@property (weak, nonatomic) IBOutlet UIToolbar* toolbar;
 @property (weak, nonatomic) IBOutlet UISegmentedControl* segmentedControl;
-@property (strong, nonatomic) UIViewController* currentViewController;
 @property (weak, nonatomic) IBOutlet UIView* contentView;
-@property (nonatomic, strong) NSArray* viewControllers;
+@property (nonatomic, strong, readwrite) UIViewController* selectedViewController;
+@property (nonatomic, strong, readwrite) NSArray* viewControllers;
 @end
 
 @implementation SegmentedViewController
@@ -22,38 +22,47 @@
 //  that this class will display
 #define VIEW_CONTROLLER_NAMES @"MapViewController", @"PhotoViewController"
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (UIViewController*)getViewControllerWithID:(NSString *)viewControllerID {
+    int i = 0;
+    for (NSString* controllerID in @[VIEW_CONTROLLER_NAMES]) {
+        if ([controllerID isEqualToString:viewControllerID]) {
+            return [self viewControllerForSegmentIndex:i];
+        }
+        i++;
+    }
+    return nil;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // add viewController so you can switch them later.
-    UIViewController *vc = [self viewControllerForSegmentIndex:self.segmentedControl.selectedSegmentIndex];
+    UIViewController *vc = [self viewControllerForSegmentIndex:
+                            self.segmentedControl.selectedSegmentIndex];
     [self addChildViewController:vc];
     vc.view.frame = self.contentView.bounds;
     [self.contentView addSubview:vc.view];
-    self.currentViewController = vc;
+    self.selectedViewController = vc;
 }
 
-- (void)viewWillLayoutSubviews {
-    self.currentViewController.view.frame = self.contentView.bounds;
+- (void)viewWillLayoutSubviews { // resize view to fit new dimensions
+    [super viewWillLayoutSubviews];
+    self.selectedViewController.view.frame = self.contentView.bounds;
 }
 
 - (IBAction)segmentChanged:(UISegmentedControl *)sender {
-    UIViewController *vc = [self viewControllerForSegmentIndex:sender.selectedSegmentIndex];
+    UIViewController *vc = [self viewControllerForSegmentIndex:
+                            sender.selectedSegmentIndex];
     [self addChildViewController:vc];
-    [self transitionFromViewController:self.currentViewController toViewController:vc duration:0.5 options:
+    [self transitionFromViewController:self.selectedViewController
+                      toViewController:vc duration:0.5 options:
      UIViewAnimationOptionTransitionCrossDissolve animations:^{
-         [self.currentViewController.view removeFromSuperview];
+         [self.selectedViewController.view removeFromSuperview];
          vc.view.frame = self.contentView.bounds;
          [self.contentView addSubview:vc.view];
      } completion:^(BOOL finished) {
          [vc didMoveToParentViewController:self];
-         [self.currentViewController removeFromParentViewController];
-         self.currentViewController = vc;
+         [self.selectedViewController removeFromParentViewController];
+         self.selectedViewController = vc;
      }];
     //    self.navigationItem.title = vc.title;
 }
@@ -73,6 +82,20 @@
 
 - (UIViewController *)viewControllerForSegmentIndex:(NSInteger)index {
     return [self.viewControllers objectAtIndex:index];
+}
+
+- (void)changeToViewControllerNamed:(NSString*)viewControllerName {
+    int i = 0;
+    for (id name in @[VIEW_CONTROLLER_NAMES]) {
+        if ([name isEqualToString:viewControllerName]) {
+            if (self.segmentedControl.selectedSegmentIndex != i) {
+                self.segmentedControl.selectedSegmentIndex = i;
+                [self segmentChanged:self.segmentedControl];
+            }
+            break;
+        }
+        i++;
+    }
 }
 
 @end
