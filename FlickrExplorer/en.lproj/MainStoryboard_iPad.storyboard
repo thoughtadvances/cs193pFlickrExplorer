@@ -82,9 +82,7 @@
                             <outlet property="delegate" destination="gsu-pR-Pf6" id="xyK-2H-LBz"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Top Places" id="Pcw-jm-kAd">
-                        <barButtonItem key="rightBarButtonItem" title="Map" id="Amf-mN-ghy"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Top Places" id="Pcw-jm-kAd"/>
                     <connections>
                         <outlet property="spinner" destination="Y9Y-qz-sUy" id="Cnm-aU-2mB"/>
                         <segue destination="Ucc-lJ-HDU" kind="push" identifier="PlacePhotos" id="OFl-kh-ued"/>
@@ -139,9 +137,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Recent Photos" id="ELU-ai-fzc"/>
-                    <navigationItem key="navigationItem" title="Photo Selector" id="WWO-N3-h1j">
-                        <barButtonItem key="rightBarButtonItem" title="Map" id="RyF-hM-IYG"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Photo Selector" id="WWO-N3-h1j"/>
                     <connections>
                         <outlet property="spinner" destination="vxU-ur-XBs" id="p9r-RS-AgO"/>
                     </connections>
@@ -194,9 +190,7 @@
                             <outlet property="delegate" destination="5kD-FL-cQr" id="Y17-oA-X66"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Photo Selector" id="e8w-Ek-JML">
-                        <barButtonItem key="rightBarButtonItem" title="Map" id="p2o-Xi-ZNs"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Photo Selector" id="e8w-Ek-JML"/>
                     <connections>
                         <outlet property="spinner" destination="BDd-Bt-GYj" id="oN9-wc-vGq"/>
                     </connections>
@@ -340,6 +334,49 @@
             <point key="canvasLocation" x="2682" y="472"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="DetailViewController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
+        </class>
+        <class className="FlickrPhotoSelectorTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoSelectorTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="FlickrPhotoViewController" superclassName="PhotoViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="FlickrTopPlacesTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrTopPlacesTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="MapViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mapTypeSelector" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+            </relationships>
+        </class>
+        <class className="PhotoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="RecentPhotosSelectorTableViewController" superclassName="FlickrPhotoSelectorTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentPhotosSelectorTableViewController.h"/>
+        </class>
+        <class className="RotatableViewController" superclassName="UITabBarController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RotatableViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
