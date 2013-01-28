@@ -16,13 +16,11 @@
 
 // How to Use
 //  After importing the 3 files into your project:
-//  - Master: Make it an instane of RotatableViewController in the storyboard
-//  - Detail: Add a UIToolbar IBOUtlet to the implementation
-//      @property (nonatomic) IBOutlet UIToolbar *toolbar;
-//  - Detail: Add a UIToolbar in the storyboard and connect it to the IBOutlet
+//  - Master: Make it an instance of RotatableViewController in the storyboard
+//  - Detail: Add a UIToolbar in the storyboard and connect it to the .m
 //  - Detail: Import SplitViewBarButtonItemPresenter @protocol in header file
 //      #import "SplitViewBarButtonItemPresenter.h"
-//  - Deatil: Publicly declare @protocol implementation
+//  - Detail: Publicly declare @protocol implementation
 //      <SplitViewBarButtonItemPresenter>
 //  - Detail: Privately declare it is the delegate
 //      <UISplitViewControllerDelegate>
@@ -62,7 +60,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.splitViewController.delegate = self; // This is the delegate
-    NSLog(@"I am logging stuff.");
 }
 
 - (id <SplitViewBarButtonItemPresenter>)splitViewBarButtonItemPresenter {
@@ -89,8 +86,8 @@
      willHideViewController:(UIViewController *)aViewController
           withBarButtonItem:(UIBarButtonItem *)barButtonItem
        forPopoverController:(UIPopoverController *)pc {
-    //
-    barButtonItem.title = self.title;
+    barButtonItem.title = @"Select Photos";
+//    barButtonItem.title = self.title;
     [self splitViewBarButtonItemPresenter].splitViewBarButtonItem =
     barButtonItem;
 }
