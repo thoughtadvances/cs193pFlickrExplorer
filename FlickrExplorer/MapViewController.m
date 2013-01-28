@@ -9,7 +9,12 @@
 #import "MapViewController.h"
 #import "FlickrPhotoViewController.h"
 #import "FlickrPhotoAnnotation.h"
+#import "FlickrPlaceAnnotation.h"
 #import "FlickrPhotoSelectorTableViewController.h"
+#import "ViewControllerSupport.h"
+#import "DetailViewController.h"
+#import "SegmentedViewController.h"
+#import "FlickrFetcher.h"
 
 @interface MapViewController () <MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *mapTypeSelector;
@@ -17,13 +22,13 @@
 @end
 
 @implementation MapViewController
-
 - (void)setMapView:(MKMapView *)mapView {
     _mapView = mapView;
     [self updateMapView];
 }
 
 - (void)setAnnotations:(NSArray *)annotations {
+    NSLog(@"setAnnotations called");
     _annotations = annotations;
     [self updateMapView];
 }
@@ -31,7 +36,10 @@
 - (void)updateMapView {
     if (self.mapView.annotations) [self.mapView
                                    removeAnnotations:self.mapView.annotations];
-    if (self.annotations) [self.mapView addAnnotations:self.annotations];
+    if (self.annotations && [self.annotations count] != 0) {
+        [self.mapView addAnnotations:self.annotations];
+        [self setMapViewRegion]; // TODO: Does setting this here work?
+    }
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView
@@ -43,64 +51,78 @@
         view = [[MKAnnotationView alloc] initWithAnnotation:annotation
                                             reuseIdentifier:@"MapVC"];
         view.canShowCallout = YES;
-        view.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:
-                                         CGRectMake(0, 0, 30, 30)];
+        NSLog(@"annotation type = %@", [annotation class]);
+        if ([annotation isKindOfClass:[FlickrPhotoAnnotation class]])
+            NSLog(@"annotation is of type FlickrPhotoAnnotation");
+            view.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:
+                                             CGRectMake(0, 0, 30, 30)];
         view.rightCalloutAccessoryView = [UIButton buttonWithType:
                                           UIButtonTypeDetailDisclosure];
     }
     view.annotation = annotation;
-    [(UIImageView *)view.leftCalloutAccessoryView setImage:nil];
+    if ([annotation isKindOfClass:[FlickrPhotoAnnotation class]])
+        [(UIImageView *)view.leftCalloutAccessoryView setImage:nil];
     return view;
-}
-
-- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view
-calloutAccessoryControlTapped:(UIControl *)control {
-    [self performSegueWithIdentifier:@"showMapPhoto" sender:view.annotation];
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:
 (MKAnnotationView *)view {
-    dispatch_queue_t downloadQueue = dispatch_queue_create("downloader",
-                                                           NULL);
-    dispatch_async(downloadQueue, ^{
-        UIImage *image = [self.delegate mapViewController:self
-                                       imageForAnnotation:view.annotation];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [(UIImageView *)view.leftCalloutAccessoryView setImage:image];
+    // Don't try to get a photo for FlickrPlaceAnnotation objects
+    if ([view.annotation isKindOfClass:[FlickrPhotoAnnotation class]]) {
+        dispatch_queue_t downloadQueue = dispatch_queue_create("downloader",
+                                                               NULL);
+        dispatch_async(downloadQueue, ^{
+            UIImage *image = [self.delegate mapViewController:self
+                                           imageForAnnotation:view.annotation];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [(UIImageView *)view.leftCalloutAccessoryView setImage:image];
+            });
         });
-    });
+    }
+    else if ([view.annotation isKindOfClass:[FlickrPlaceAnnotation class]]) {
+        
+    }
 }
 
-- (void)setMapType {
+// FIXME: The mapView is not calling these functions
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view
+calloutAccessoryControlTapped:(UIControl *)control {
+    NSLog(@"This is called");
+    // Show the PhotoViewController
+    if (self.splitViewController && [view.annotation isKindOfClass:
+                                     [FlickrPhotoAnnotation class]]) {
+        id detail = [self.splitViewController.viewControllers lastObject];
+        [detail changeToViewControllerNamed:@"PhotoViewController"];
+        [detail setPhoto:[(FlickrPhotoAnnotation*)view.annotation photo]];
+    }
+    // Move from TopPlaces to PhotoTableView in the master
+    else if (self.splitViewController && [view.annotation isKindOfClass:
+                                          [FlickrPlaceAnnotation class]]) {
+        id master = [ViewControllerSupport getNonNavigationControllerFor:[self.splitViewController.viewControllers objectAtIndex:0]];
+        [master performSegueWithIdentifier:@"PlacePhotos" sender:view.annotation];
+    }
+}
+
+- (void)setMapType { // UISegementedButton pressed
     NSInteger choice = self.mapTypeSelector.selectedSegmentIndex;
     if (choice == 0) self.mapView.mapType = MKMapTypeStandard;
     else if (choice == 1) self.mapView.mapType = MKMapTypeSatellite;
     else self.mapView.mapType = MKMapTypeHybrid;
+//    [self.mapView setNeedsDisplay]; // TODO: Is this really necessary?
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    self.splitViewController.presentsWithGesture = NO;
     self.mapView.delegate = self;
     self.mapTypeSelector.selectedSegmentIndex = 0;
-    [self.mapTypeSelector addTarget:self.mapView
-                             action:@selector(setMapType:)
+    [self.mapTypeSelector addTarget:self
+                             action:@selector(setMapType)
                    forControlEvents:UIControlEventValueChanged];
-    if (self.splitViewController) {
-        UIViewController* master = [self.splitViewController.viewControllers
-                                    objectAtIndex:0];
-        if ([master isKindOfClass:[UITabBarController class]]) {
-            master = [(UITabBarController*)master selectedViewController];
-        }
-        if ([master isKindOfClass:[UINavigationController class]]) {
-            master = [(UINavigationController*)master topViewController];
-        }
-        self.title = [master.navigationItem.title
-                      stringByAppendingString:@" Map"];
-    }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)setMapViewRegion {
+    NSLog(@"setMapRegion called");
     // Show all annotations on screen
     double maxLatitude = 0;
     double minLatitude = 0;
@@ -135,6 +157,11 @@ calloutAccessoryControlTapped:(UIControl *)control {
     [self.mapView setVisibleMapRect:finalRegion
                         edgePadding:UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0)
                            animated:NO];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
@@ -142,13 +169,17 @@ calloutAccessoryControlTapped:(UIControl *)control {
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showMapPhoto"]) {
-        FlickrPhotoAnnotation *flickrAnnotation =
-        (FlickrPhotoAnnotation *)sender;
-        [segue.destinationViewController setPhoto:flickrAnnotation.photo];
+    if ([segue.identifier isEqualToString:@"PlacePhotos"]) {
+        // sender isMemberOf:[FlickrPhotoAnnotation]
+        // TODO: Can this be moved to within the FlickrPhotoViewController
+        //  class?  Is there somewhere where the title change will be
+        //  visible before it comes on screen?
+        [segue.destinationViewController setTitle:[[sender selectedPhoto]
+                                                   objectForKey:
+                                                   FLICKR_PLACE_NAME]];
+        [segue.destinationViewController setPlace:sender];
     }
     else if ([segue.identifier isEqualToString:@"showTablePhoto"])
         [segue.destinationViewController setPhoto:[sender selectedPhoto]];
 }
-
 @end
