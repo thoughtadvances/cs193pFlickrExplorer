@@ -14,7 +14,7 @@
 #import <UIKit/UIKit.h>
 #import "SplitViewBarButtonItemPresenter.h"
 
-@interface DetailViewController : UINavigationController
+@interface DetailViewController : UIViewController
 <SplitViewBarButtonItemPresenter>
-
+//- (void)childPresented;
 @end
