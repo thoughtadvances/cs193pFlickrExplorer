@@ -10,11 +10,16 @@
 #import "FlickrFetcher.h"
 #import "FlickrPhotoSelectorTableViewController.h"
 #import "MapViewController.h"
+#import "ViewControllerSupport.h"
+#import "SegmentedViewController.h"
+#import "FlickrPlaceAnnotation.h"
+#import <dispatch/queue.h>
 
 @interface FlickrTopPlacesTableViewController ()
 // TODO: Create a custom data Class TACountry which stores this more easily
 // Flickr countries presented in the table view
 @property (nonatomic, strong) NSArray *countries;
+@property (nonatomic, strong) NSArray* places; // unorganized places array
 @property (nonatomic, strong) NSDictionary *selectedPlace;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @end
@@ -23,7 +28,34 @@
 
 - (void)setCountries:(NSArray *)countries {
     _countries = countries;
-    [self.tableView reloadData];
+    [self updateMapAnnotations];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
+
+- (NSArray *)mapAnnotations {
+    NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:
+                                   [self.places count]];
+    for (NSDictionary *place in self.places) {
+        [annotations addObject:[FlickrPlaceAnnotation annotationForPlace:place]];
+    }
+    return annotations;
+}
+
+// FIXME: I have almost exact code duplication between this class and
+//  PhotoSelectorTableViewController
+- (void)updateMapAnnotations {
+    if (self.splitViewController) {
+        id detail = [self.splitViewController.viewControllers lastObject];
+        for (id viewController in [detail viewControllers]) {
+            if ([viewController isKindOfClass:[MapViewController class]]) {
+                detail = viewController;
+                break;
+            }
+        }
+        if (self.countries) [detail setAnnotations:[self mapAnnotations]];
+    }
 }
 
 // Take an NSArray from Flickr API of top places and reorder it into an
@@ -93,26 +125,28 @@
     return [mutableSortedCountries copy];
 }
 
-// FIXME: Why doesn't the spinner show up?  Is it because I have no network, so
-//  it completes the downloadQueue so quickly that the spinner is removed before
 - (void)getCountries {
     [self.spinner startAnimating];
     dispatch_queue_t downloadQueue = dispatch_queue_create("downloader",
                                                            NULL);
     dispatch_async(downloadQueue, ^{
+        self.places = [FlickrFetcher topPlaces];
         self.countries = [FlickrTopPlacesTableViewController
-                          makeArrayOfTopPlacesByCountry:
-                          [FlickrFetcher topPlaces]];
+                          makeArrayOfTopPlacesByCountry:self.places];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.spinner stopAnimating];
         });
     });
 }
 
-- (void)viewDidLoad { // get the top Places
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self updateMapAnnotations];
+}
+
+- (void)viewDidLoad {
     [super viewDidLoad];
-    self.spinner.hidesWhenStopped = YES;
-    self.splitViewController.presentsWithGesture = NO;
+//    self.spinner.hidesWhenStopped = YES;
     [self getCountries];
 }
 
@@ -189,22 +223,20 @@
     self.selectedPlace = [places objectAtIndex:indexPath.row];
     // This segue must be manual because otherwise the segue is called
     //      before the indexPath is updated
-    // TODO: Can this be put in the storyboard by creating an auto segue from
-    //  the dnamic table cell prototype to the destination UIViewController?
     [self performSegueWithIdentifier:@"PlacePhotos" sender:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // go to the
     if ([segue.identifier isEqualToString:@"PlacePhotos"]) {
         [segue.destinationViewController setTitle:[self.selectedPlace
                                                    objectForKey:
                                                    FLICKR_PLACE_NAME]];
+        [segue.destinationViewController setPlace:self.selectedPlace];
     }
-    if ([segue.identifier isEqualToString:@"showMap"]) {
-        [segue.destinationViewController setAnnotations:self.countries];
+    else if ([segue.identifier isEqualToString:@"showMap"]) {
+        [segue.destinationViewController setAnnotations:[self mapAnnotations]];
+        [segue.destinationViewController setTitle:[self.navigationItem.title
+                                                   stringByAppendingString:@" Map"]];
     }
-    else NSLog(@"Unidentified segue of identifier %@ called", segue.identifier);
 }
-
 @end
