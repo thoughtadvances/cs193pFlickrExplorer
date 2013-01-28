@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface ViewControllerSupport : NSObject
-
++ (UIViewController*)getNonNavigationControllerFor:
+(UIViewController *)controller;
 @end
