@@ -24,21 +24,25 @@
 @implementation MapViewController
 - (void)setMapView:(MKMapView *)mapView {
     _mapView = mapView;
+    self.mapView.delegate = self;
     [self updateMapView];
+    // Update the annotations once the mapView has been set
 }
 
 - (void)setAnnotations:(NSArray *)annotations {
-    NSLog(@"setAnnotations called");
     _annotations = annotations;
     [self updateMapView];
 }
 
 - (void)updateMapView {
-    if (self.mapView.annotations) [self.mapView
-                                   removeAnnotations:self.mapView.annotations];
-    if (self.annotations && [self.annotations count] != 0) {
-        [self.mapView addAnnotations:self.annotations];
-        [self setMapViewRegion]; // TODO: Does setting this here work?
+    if (self.mapView) {
+        if (self.mapView.annotations) [self.mapView
+                                       removeAnnotations:
+                                       self.mapView.annotations];
+        if (self.annotations && [self.annotations count] != 0) {
+            [self.mapView addAnnotations:self.annotations];
+            [self setMapViewRegion]; // TODO: Does setting this here work?
+        }
     }
 }
 
@@ -48,14 +52,13 @@
                               dequeueReusableAnnotationViewWithIdentifier:
                               @"MapVC"];
     if (!view) {
-        view = [[MKAnnotationView alloc] initWithAnnotation:annotation
-                                            reuseIdentifier:@"MapVC"];
+        view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
+                                               reuseIdentifier:@"MapVC"];
+        
         view.canShowCallout = YES;
-        NSLog(@"annotation type = %@", [annotation class]);
         if ([annotation isKindOfClass:[FlickrPhotoAnnotation class]])
-            NSLog(@"annotation is of type FlickrPhotoAnnotation");
-            view.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:
-                                             CGRectMake(0, 0, 30, 30)];
+        view.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:
+                                         CGRectMake(0, 0, 30, 30)];
         view.rightCalloutAccessoryView = [UIButton buttonWithType:
                                           UIButtonTypeDetailDisclosure];
     }
@@ -74,9 +77,10 @@
         dispatch_async(downloadQueue, ^{
             UIImage *image = [self.delegate mapViewController:self
                                            imageForAnnotation:view.annotation];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [(UIImageView *)view.leftCalloutAccessoryView setImage:image];
-            });
+            if (image)
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [(UIImageView *)view.leftCalloutAccessoryView setImage:image];
+                });
         });
     }
     else if ([view.annotation isKindOfClass:[FlickrPlaceAnnotation class]]) {
@@ -84,15 +88,14 @@
     }
 }
 
-// FIXME: The mapView is not calling these functions
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view
 calloutAccessoryControlTapped:(UIControl *)control {
-    NSLog(@"This is called");
     // Show the PhotoViewController
     if (self.splitViewController && [view.annotation isKindOfClass:
                                      [FlickrPhotoAnnotation class]]) {
         id detail = [self.splitViewController.viewControllers lastObject];
         [detail changeToViewControllerNamed:@"PhotoViewController"];
+        detail = [detail getViewControllerWithID:@"PhotoViewController"];
         [detail setPhoto:[(FlickrPhotoAnnotation*)view.annotation photo]];
     }
     // Move from TopPlaces to PhotoTableView in the master
@@ -101,6 +104,9 @@ calloutAccessoryControlTapped:(UIControl *)control {
         id master = [ViewControllerSupport getNonNavigationControllerFor:[self.splitViewController.viewControllers objectAtIndex:0]];
         [master performSegueWithIdentifier:@"PlacePhotos" sender:view.annotation];
     }
+    else {
+        [self performSegueWithIdentifier:@"showPhoto" sender:view];
+    }
 }
 
 - (void)setMapType { // UISegementedButton pressed
@@ -108,13 +114,11 @@ calloutAccessoryControlTapped:(UIControl *)control {
     if (choice == 0) self.mapView.mapType = MKMapTypeStandard;
     else if (choice == 1) self.mapView.mapType = MKMapTypeSatellite;
     else self.mapView.mapType = MKMapTypeHybrid;
-//    [self.mapView setNeedsDisplay]; // TODO: Is this really necessary?
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.splitViewController.presentsWithGesture = NO;
-    self.mapView.delegate = self;
     self.mapTypeSelector.selectedSegmentIndex = 0;
     [self.mapTypeSelector addTarget:self
                              action:@selector(setMapType)
@@ -122,7 +126,6 @@ calloutAccessoryControlTapped:(UIControl *)control {
 }
 
 - (void)setMapViewRegion {
-    NSLog(@"setMapRegion called");
     // Show all annotations on screen
     double maxLatitude = 0;
     double minLatitude = 0;
@@ -181,5 +184,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
     }
     else if ([segue.identifier isEqualToString:@"showTablePhoto"])
         [segue.destinationViewController setPhoto:[sender selectedPhoto]];
+    else if ([segue.identifier isEqualToString:@"showPhoto"])
+        [segue.destinationViewController setPhoto:[[sender annotation] photo]];
 }
 @end
