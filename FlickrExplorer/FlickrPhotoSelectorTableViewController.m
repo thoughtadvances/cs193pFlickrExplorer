@@ -12,8 +12,7 @@
 #import <MapKit/MapKit.h>
 #import "MapViewController.h"
 #import "FlickrPhotoAnnotation.h"
-#import "DetailViewController.h"
-#import "FlickrPhotoViewController.h"
+#import "SegmentedViewController.h"
 
 @interface FlickrPhotoSelectorTableViewController () <MapViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
@@ -23,6 +22,7 @@
 
 - (void)setPhotos:(NSArray *)photos {
     _photos = photos;
+    [self updateMapAnnotations];
     [self.tableView reloadData];
 }
 
@@ -43,17 +43,39 @@
     });
 }
 
+- (NSArray *)mapAnnotations {
+    NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:
+                                   [self.photos count]];
+    for (NSDictionary *photo in self.photos) {
+        [annotations addObject:[FlickrPhotoAnnotation annotationForPhoto:photo]];
+    }
+    return annotations;
+}
+
+
+// FIXME: Almost complete duplicate of the same method in TopPlacesTable
+//  ViewController
+- (void)updateMapAnnotations {
+    if (self.splitViewController) {
+        id detail = [self.splitViewController.viewControllers lastObject];
+        for (id viewController in [detail viewControllers]) {
+            if ([viewController isKindOfClass:[MapViewController class]]) {
+                detail = viewController;
+                break;
+            }
+        }
+        if (self.photos) [detail setAnnotations:[self mapAnnotations]];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.spinner.hidesWhenStopped = YES;
+    //    self.spinner.hidesWhenStopped = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    if (self.splitViewController) { // keep selection on iPad
-        self.clearsSelectionOnViewWillAppear = NO;
-    }
+    [self updateMapAnnotations];
 }
 
 - (UIImage *)mapViewController:(MapViewController *)sender
@@ -74,8 +96,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Photo";
     UITableViewCell *cell = [tableView
                              dequeueReusableCellWithIdentifier:CellIdentifier
@@ -110,9 +131,12 @@
         NSURL *photoURL = [FlickrFetcher urlForPhoto:photo format:
                            FlickrPhotoFormatSquare];
         NSData *imageData = [NSData dataWithContentsOfURL:photoURL];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIImage *photoImage = [UIImage imageWithData:imageData];
+        UIImage *photoImage = [UIImage imageWithData:imageData];
+        if (photoImage)
+            dispatch_async(dispatch_get_main_queue(), ^{
             cell.imageView.image = photoImage;
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
         });
     });
     
@@ -129,18 +153,20 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedPhoto = [self.photos objectAtIndex:indexPath.row];
     if (self.splitViewController) {
-        UIViewController *detail = [[self.splitViewController.viewControllers
-                                     lastObject] topViewController];
-        if (![detail isKindOfClass:[PhotoViewController class]]) {
-            [detail performSegueWithIdentifier:@"showTablePhoto" sender:self];
-        } else [(FlickrPhotoViewController*)detail setPhoto:self.selectedPhoto];
+        id detail = [self.splitViewController.viewControllers lastObject];
+        [detail changeToViewControllerNamed:@"PhotoViewController"];
+        detail = [detail getViewControllerWithID:@"PhotoViewController"];
+        [(id)detail setPhoto:self.selectedPhoto];
     } else [self performSegueWithIdentifier:@"showPhoto" sender:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showPhoto"]) {
+        NSLog(@"self.selectedPhoto = %@", self.selectedPhoto);
         [segue.destinationViewController setPhoto:self.selectedPhoto];
     }
+    else if ([segue.identifier isEqualToString:@"showMap"])
+        [segue.destinationViewController setAnnotations:[self mapAnnotations]];
 }
 
 @end
