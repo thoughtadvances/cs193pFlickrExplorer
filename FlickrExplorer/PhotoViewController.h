@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "SplitViewBarButtonItemPresenter.h"
 
 @interface PhotoViewController : UIViewController
-//<SplitViewBarButtonItemPresenter>
 @property (nonatomic, strong) UIImage *image; // image to be displayed
 @end
