@@ -15,6 +15,7 @@
 #import "DetailViewController.h"
 #import "SegmentedViewController.h"
 #import "FlickrFetcher.h"
+#import "FlickrTopPlacesTableViewController.h"
 
 @interface MapViewController () <MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *mapTypeSelector;
@@ -57,8 +58,8 @@
         
         view.canShowCallout = YES;
         if ([annotation isKindOfClass:[FlickrPhotoAnnotation class]])
-        view.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:
-                                         CGRectMake(0, 0, 30, 30)];
+            view.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:
+                                             CGRectMake(0, 0, 30, 30)];
         view.rightCalloutAccessoryView = [UIButton buttonWithType:
                                           UIButtonTypeDetailDisclosure];
     }
@@ -100,13 +101,16 @@ calloutAccessoryControlTapped:(UIControl *)control {
     }
     // Move from TopPlaces to PhotoTableView in the master
     else if (self.splitViewController && [view.annotation isKindOfClass:
-                                          [FlickrPlaceAnnotation class]]) {
+                                          [FlickrPlaceAnnotation class]]) {        
         id master = [ViewControllerSupport getNonNavigationControllerFor:[self.splitViewController.viewControllers objectAtIndex:0]];
+        NSLog(@"master's type = %@", [master class]);
         [master performSegueWithIdentifier:@"PlacePhotos" sender:view.annotation];
     }
-    else {
-        [self performSegueWithIdentifier:@"showPhoto" sender:view];
-    }
+    else if ([view.annotation isKindOfClass:[FlickrPhotoAnnotation class]])
+        [self performSegueWithIdentifier:@"showPhoto" sender:view.annotation];
+    else if ([view.annotation isKindOfClass:[FlickrPlaceAnnotation class]])
+        [self performSegueWithIdentifier:@"PlacePhotos" sender:[(FlickrPlaceAnnotation*)view.annotation place]];
+    
 }
 
 - (void)setMapType { // UISegementedButton pressed
@@ -173,7 +177,6 @@ calloutAccessoryControlTapped:(UIControl *)control {
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"PlacePhotos"]) {
-        // sender isMemberOf:[FlickrPhotoAnnotation]
         // TODO: Can this be moved to within the FlickrPhotoViewController
         //  class?  Is there somewhere where the title change will be
         //  visible before it comes on screen?
@@ -185,6 +188,6 @@ calloutAccessoryControlTapped:(UIControl *)control {
     else if ([segue.identifier isEqualToString:@"showTablePhoto"])
         [segue.destinationViewController setPhoto:[sender selectedPhoto]];
     else if ([segue.identifier isEqualToString:@"showPhoto"])
-        [segue.destinationViewController setPhoto:[[sender annotation] photo]];
+        [segue.destinationViewController setPhoto:[sender photo]];
 }
 @end
