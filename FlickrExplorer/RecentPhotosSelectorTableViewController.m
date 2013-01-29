@@ -22,6 +22,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated { // update photos on every showing
+    [super viewWillAppear:animated];
     NSArray *recentPhotos = [self recentPhotos];
     if (![recentPhotos isEqualToArray:self.photos]) {
         self.photos = recentPhotos; // get new recents
