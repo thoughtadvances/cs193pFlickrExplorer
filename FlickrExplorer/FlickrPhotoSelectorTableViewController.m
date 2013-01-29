@@ -35,10 +35,12 @@
     [self.spinner startAnimating];
     dispatch_queue_t downloadQueue = dispatch_queue_create("downloader",
                                                            NULL);
+    [self.spinner startAnimating];
     dispatch_async(downloadQueue, ^{
         self.photos = [FlickrFetcher photosInPlace:self.place maxResults:5];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.spinner stopAnimating];
+            [self.tableView reloadData];
         });
     });
 }
@@ -53,38 +55,31 @@
 }
 
 
+# pragma mark Lifecycle methods
+
 // FIXME: Almost complete duplicate of the same method in TopPlacesTable
 //  ViewController
 - (void)updateMapAnnotations {
     if (self.splitViewController) {
         id detail = [self.splitViewController.viewControllers lastObject];
-        for (id viewController in [detail viewControllers]) {
-            if ([viewController isKindOfClass:[MapViewController class]]) {
-                detail = viewController;
-                break;
-            }
-        }
+        detail = [detail getViewControllerWithID:@"MapViewController"];
         if (self.photos) [detail setAnnotations:[self mapAnnotations]];
     }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //    self.spinner.hidesWhenStopped = YES;
+    // set MapViewController's delegate
+    if (self.splitViewController) { // MapViewController delegate on iPad
+        id detail = [self.splitViewController.viewControllers lastObject];
+        detail = [detail getViewControllerWithID:@"MapViewController"];
+        [detail setDelegate:self];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self updateMapAnnotations];
-}
-
-- (UIImage *)mapViewController:(MapViewController *)sender
-            imageForAnnotation:(id<MKAnnotation>)annotation {
-    FlickrPhotoAnnotation *flickrAnnotation = (FlickrPhotoAnnotation *)annotation;
-    NSURL *url = [FlickrFetcher urlForPhoto:flickrAnnotation.photo format:
-                  FlickrPhotoFormatSquare];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    return data ? [UIImage imageWithData:data] : nil;
 }
 
 #pragma mark - Table view data source
@@ -134,10 +129,10 @@
         UIImage *photoImage = [UIImage imageWithData:imageData];
         if (photoImage)
             dispatch_async(dispatch_get_main_queue(), ^{
-            cell.imageView.image = photoImage;
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath]
-                                  withRowAnimation:UITableViewRowAnimationAutomatic];
-        });
+                cell.imageView.image = photoImage;
+                [self.tableView reloadRowsAtIndexPaths:@[indexPath]
+                                      withRowAnimation:UITableViewRowAnimationAutomatic];
+            });
     });
     
     cell.textLabel.text = photoTitle;
@@ -160,13 +155,25 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     } else [self performSegueWithIdentifier:@"showPhoto" sender:self];
 }
 
+#pragma mark - Other view controllers
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showPhoto"]) {
-        NSLog(@"self.selectedPhoto = %@", self.selectedPhoto);
         [segue.destinationViewController setPhoto:self.selectedPhoto];
     }
-    else if ([segue.identifier isEqualToString:@"showMap"])
+    else if ([segue.identifier isEqualToString:@"showMap"]) {
         [segue.destinationViewController setAnnotations:[self mapAnnotations]];
+        [segue.destinationViewController setDelegate:self];
+    }
+}
+
+- (UIImage *)mapViewController:(MapViewController *)sender
+            imageForAnnotation:(id<MKAnnotation>)annotation {
+    FlickrPhotoAnnotation *flickrAnnotation = (FlickrPhotoAnnotation *)annotation;
+    NSURL *url = [FlickrFetcher urlForPhoto:flickrAnnotation.photo format:
+                  FlickrPhotoFormatSquare];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    return data ? [UIImage imageWithData:data] : nil;
 }
 
 @end
