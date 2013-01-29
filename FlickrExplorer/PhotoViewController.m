@@ -45,8 +45,8 @@ UISplitViewControllerDelegate>
     self.scrollView.maximumZoomScale;
     self.scrollView.contentSize = CGSizeMake(width, height);
 //    self.scrollView.contentSize = self.imageView.image.size;
-//    self.imageView.frame = CGRectMake(0, 0, self.imageView.image.size.width,
-//                                      self.imageView.image.size.height);
+    self.imageView.frame = CGRectMake(0, 0, self.imageView.image.size.width,
+                                      self.imageView.image.size.height);
     
     // Calculate size differences between scrollView and the image
 //    double scale = 0.0;
