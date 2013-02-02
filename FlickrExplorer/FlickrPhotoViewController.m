@@ -33,11 +33,11 @@
         NSURL* filePath = [applicationDirectory URLByAppendingPathComponent:
                            photoID];
         NSLog(@"filePath = %@", [filePath path]);
-        double size = [IOSupport sizeOfDirectory:applicationDirectory];
-        NSLog(@"size of the image cache is %f", size);
-        if (size > 10) { // delete oldest accessed file
+        NSNumber* size = [IOSupport sizeOfDirectory:applicationDirectory];
+        NSLog(@"size of the image cache is %@", size);
+        if ([size doubleValue] > 10) { // delete oldest accessed file
             NSURL *oldFile = [IOSupport
-                              oldestFileInDirectory:applicationDirectory];
+                              oldestAccessedFileInDirectory:applicationDirectory];
             [defaultManager removeItemAtURL:oldFile error:nil];
         }
         NSLog(@"filePath = %@", [filePath path]);
