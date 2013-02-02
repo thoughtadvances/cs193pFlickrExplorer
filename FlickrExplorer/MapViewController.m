@@ -102,14 +102,16 @@ calloutAccessoryControlTapped:(UIControl *)control {
     // Move from TopPlaces to PhotoTableView in the master
     else if (self.splitViewController && [view.annotation isKindOfClass:
                                           [FlickrPlaceAnnotation class]]) {        
-        id master = [ViewControllerSupport getNonNavigationControllerFor:[self.splitViewController.viewControllers objectAtIndex:0]];
+        id master = [ViewControllerSupport getNonNavigationControllerFor:
+                     [self.splitViewController.viewControllers objectAtIndex:0]];
         NSLog(@"master's type = %@", [master class]);
         [master performSegueWithIdentifier:@"PlacePhotos" sender:view.annotation];
     }
     else if ([view.annotation isKindOfClass:[FlickrPhotoAnnotation class]])
         [self performSegueWithIdentifier:@"showPhoto" sender:view.annotation];
     else if ([view.annotation isKindOfClass:[FlickrPlaceAnnotation class]])
-        [self performSegueWithIdentifier:@"PlacePhotos" sender:[(FlickrPlaceAnnotation*)view.annotation place]];
+        [self performSegueWithIdentifier:@"PlacePhotos" sender:
+         [(FlickrPlaceAnnotation*)view.annotation place]];
     
 }
 
@@ -135,8 +137,10 @@ calloutAccessoryControlTapped:(UIControl *)control {
     double minLatitude = 0;
     double maxLongitude = 0;
     double minLongitude = 0;
+    NSLog(@"self.annotations = %@", self.annotations);
     for (id<MKAnnotation> annotation in self.annotations) { // get bounds
         if (annotation.coordinate.latitude) {
+            NSLog(@"Coordinates: %f, %f", annotation.coordinate.latitude, annotation.coordinate.longitude);
             if (annotation.coordinate.latitude > maxLatitude)
                 maxLatitude = annotation.coordinate.latitude;
             else if (annotation.coordinate.latitude < minLatitude)
@@ -150,6 +154,8 @@ calloutAccessoryControlTapped:(UIControl *)control {
     // width and height
     CLLocationCoordinate2D bottomLeftPoint = {minLatitude, minLongitude};
     CLLocationCoordinate2D topRightPoint = {maxLatitude, maxLongitude};
+    NSLog(@"bottomLeftPoint = %f, %f", bottomLeftPoint.latitude, bottomLeftPoint.longitude);
+    NSLog(@"topRightPoints = %f, %f", topRightPoint.latitude, bottomLeftPoint.longitude);
     double width = MKMapPointForCoordinate(topRightPoint).x -
     MKMapPointForCoordinate(bottomLeftPoint).x;
     double height = MKMapPointForCoordinate(topRightPoint).y -
@@ -180,9 +186,12 @@ calloutAccessoryControlTapped:(UIControl *)control {
         // TODO: Can this be moved to within the FlickrPhotoViewController
         //  class?  Is there somewhere where the title change will be
         //  visible before it comes on screen?
-        [segue.destinationViewController setTitle:[[sender selectedPhoto]
-                                                   objectForKey:
-                                                   FLICKR_PLACE_NAME]];
+        //        if ([sender respondsToSelector:@selector(selectedPlace)]) {
+        //            [segue.destinationViewController setTitle:[[sender selectedPlace]
+        //                                                       objectForKey:
+        //                                                       FLICKR_PLACE_NAME]];
+        
+        //        }
         [segue.destinationViewController setPlace:sender];
     }
     else if ([segue.identifier isEqualToString:@"showTablePhoto"])
