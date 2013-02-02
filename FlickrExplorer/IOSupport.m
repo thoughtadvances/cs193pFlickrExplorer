@@ -15,8 +15,7 @@
     
     NSDirectoryEnumerator *enumerator =
     [localFileManager enumeratorAtURL:scanDirectory
-           includingPropertiesForKeys: [NSArray arrayWithObjects:
-                                        NSURLNameKey, NSURLIsDirectoryKey, nil]
+           includingPropertiesForKeys: @[NSURLNameKey, NSURLIsDirectoryKey]
                               options: NSDirectoryEnumerationSkipsHiddenFiles
                          errorHandler: nil];
     
@@ -33,25 +32,19 @@
     return files;
 }
 
-+ (NSURL*)oldestFileInDirectory:(NSURL*)scanDirectory {
-    NSArray* URLs = [IOSupport arrayOfFileURLsInDirectory:scanDirectory];
++ (NSURL*)oldestAccessedFileInDirectory:(NSURL*)scanDirectory {
     NSDate* date;
-    NSDate* oldestDate;
+    NSDate* oldestDate = [NSDate date];
     NSURL *oldestFile;
-    for (id URL in URLs) {
-        if ([URL isKindOfClass:[NSURL class]]) {
-            [URL getResourceValue:&date forKey:NSURLContentAccessDateKey
-                            error:NULL];
-            oldestDate = [oldestDate earlierDate:date];
-            if ([oldestDate isEqualToDate:date]) {
-                oldestFile = URL;
-            }
-        }
+    for (NSURL* URL in [IOSupport arrayOfFileURLsInDirectory:scanDirectory]) {
+        [URL getResourceValue:&date forKey:NSURLContentAccessDateKey error:nil];
+        oldestDate = [oldestDate earlierDate:date];
+        if ([oldestDate isEqualToDate:date]) oldestFile = URL;
     }
     return oldestFile;
 }
 
-+ (double)sizeOfDirectory:(NSURL*)scanDirectory {
++ (NSNumber*)sizeOfDirectory:(NSURL*)scanDirectory {
     NSArray *URLs = [IOSupport arrayOfFileURLsInDirectory:scanDirectory];
     NSNumber *size;
     double totalSize = 0.0;
@@ -63,7 +56,7 @@
             totalSize += [size doubleValue];
         }
     }
-    return totalSize/(2^20);
+    return [NSNumber numberWithDouble:totalSize/pow(2, 20)];
 }
 
 + (NSURL*)applicationDirectory {
