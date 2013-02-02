@@ -144,7 +144,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     }
     else if ([segue.identifier isEqualToString:@"showMap"]) {
         [segue.destinationViewController setAnnotations:[self mapAnnotations]];
-        [segue.destinationViewController setDelegate:self];
     }
 }
 @end
