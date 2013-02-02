@@ -66,16 +66,6 @@
     }
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // set MapViewController's delegate
-    if (self.splitViewController) { // MapViewController delegate on iPad
-        id detail = [self.splitViewController.viewControllers lastObject];
-        detail = [detail getViewControllerWithID:@"MapViewController"];
-        [detail setDelegate:self];
-    }
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (!self.splitViewController) [self.spinner startAnimating];
