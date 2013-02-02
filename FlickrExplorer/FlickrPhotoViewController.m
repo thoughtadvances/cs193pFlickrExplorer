@@ -10,6 +10,8 @@
 #import "FlickrFetcher.h"
 #import "FlickrExplorerAppDelegate.h"
 #import "IOSupport.h"
+#import "FlickrPhotoSelectorTableViewController.h"
+#import "ViewControllerSupport.h"
 
 @interface FlickrPhotoViewController ()
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
@@ -19,63 +21,77 @@
 
 - (void)setPhoto:(NSDictionary *)photo {
     _photo = photo;
-    NSLog(@"FlickPhotoView's image is %@", self.photo);
     [self updatePhoto];
 }
 
 - (void)storeFlickrPhotoData:(NSData*)data {
     dispatch_queue_t storageQueue = dispatch_queue_create("storage",
-                                                          NULL);
+                                                          nil);
     dispatch_async(storageQueue, ^{
         NSFileManager *defaultManager = [NSFileManager defaultManager];
         NSURL* applicationDirectory = [IOSupport applicationDirectory];
         NSString *photoID = [self.photo objectForKey:FLICKR_PHOTO_ID];
-        NSString *filePath = [NSString stringWithFormat:@"%@/%@",
-                              applicationDirectory, photoID];
-        double size = [IOSupport sizeOfDirectory:[NSURL URLWithString:filePath]];
+        NSURL* filePath = [applicationDirectory URLByAppendingPathComponent:
+                           photoID];
+        NSLog(@"filePath = %@", [filePath path]);
+        double size = [IOSupport sizeOfDirectory:applicationDirectory];
+        NSLog(@"size of the image cache is %f", size);
         if (size > 10) { // delete oldest accessed file
             NSURL *oldFile = [IOSupport
                               oldestFileInDirectory:applicationDirectory];
-            [defaultManager removeItemAtURL:oldFile error:NULL];
+            [defaultManager removeItemAtURL:oldFile error:nil];
         }
-        [defaultManager createFileAtPath:filePath contents:data
-                              attributes:NULL];
+        NSLog(@"filePath = %@", [filePath path]);
+        [defaultManager createFileAtPath:[filePath path] contents:data
+                              attributes:nil];
     });
+}
+
+- (NSData*)getCachedPhotoWithID:(NSString*)photoID {
+    NSArray *URLs = [IOSupport arrayOfFileURLsInDirectory:
+                     [IOSupport applicationDirectory]];
+    for (NSURL* URL in URLs) { // Is it locally stored?
+        NSString *filename;
+        [URL getResourceValue:&filename forKey:NSURLNameKey error:NULL];
+        if ([filename isEqualToString:photoID]) {
+            return [NSData dataWithContentsOfURL:URL];
+        }
+    }
+    return nil;
 }
 
 - (void)updatePhoto { // Download photo and set it
     [self.spinner startAnimating];
     dispatch_queue_t downloadQueue = dispatch_queue_create("downloader",
-                                                           NULL);
+                                                           nil);
     
     dispatch_async(downloadQueue, ^{
-        BOOL cached = NO;
-        NSData *photoData;
         NSString *photoID = [self.photo objectForKey:FLICKR_PHOTO_ID];
-        NSArray *URLs = [IOSupport arrayOfFileURLsInDirectory:
-                         [IOSupport applicationDirectory]];
-        for (id URL in URLs) { // Is it locally stored?
-            if ([URL isKindOfClass:[NSURL class]]) {
-                NSString *filename;
-                [URL getResourceValue:&filename forKey:NSURLNameKey error:NULL];
-                if ([filename isEqualToString:photoID]) {
-                    photoData = [NSData dataWithContentsOfURL:URL];
-                    cached = YES;
-                }
-            }
-        }
-        if (!cached) { // If not, then download
+        NSData *photoData = [self getCachedPhotoWithID:photoID];
+        
+        if (!photoData) { // if note cached, then download
             NSURL *photoURL = [FlickrFetcher urlForPhoto:self.photo format:
                                FlickrPhotoFormatLarge];
             photoData = [NSData dataWithContentsOfURL:photoURL];
-            [self storeFlickrPhotoData:photoData];
+            if (photoURL && photoData) [self storeFlickrPhotoData:photoData];
         }
         
+        UIImage *photoImage = [UIImage imageWithData:photoData];
         dispatch_async(dispatch_get_main_queue(), ^{ // Display
-            UIImage *photoImage = [UIImage imageWithData:photoData];
-            self.title = [self.photo objectForKey:FLICKR_PHOTO_TITLE];
-            self.image = photoImage;
             [self.spinner stopAnimating];
+            id master =
+            [self.splitViewController.viewControllers objectAtIndex:0];
+            master = [ViewControllerSupport getNonNavigationControllerFor:master];
+            if ([master respondsToSelector:@selector(selectedPhoto)] &&
+                [[master selectedPhoto] isEqualToDictionary:self.photo]) {
+                // FIXME: How to clean up this duplication?
+                self.title = [self.photo objectForKey:FLICKR_PHOTO_TITLE];
+                self.image = photoImage;
+            }
+            if (!self.splitViewController) { // iPhone update
+                self.title = [self.photo objectForKey:FLICKR_PHOTO_TITLE];
+                self.image = photoImage;
+            }
         });
     });
 }
