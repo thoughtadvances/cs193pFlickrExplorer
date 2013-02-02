@@ -70,6 +70,15 @@ UISplitViewControllerDelegate>
     [self.imageView setNeedsDisplay]; // update screen on UIImage change
 }
 
+- (void)viewWillLayoutSubviews { // Make sure the spinner is centered in
+    //  the imageView
+    [super viewWillLayoutSubviews];
+    CGFloat centerY = self.scrollView.frame.size.height / 2;
+    CGFloat centerX = self.scrollView.frame.size.width / 2;
+    self.spinner.frame = CGRectMake(0, 0, centerX, centerY);
+    self.spinner.frame = CGRectMake(centerX, centerY, 0, 0);
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self updateImage];
