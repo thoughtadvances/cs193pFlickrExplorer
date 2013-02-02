@@ -66,10 +66,13 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidLoad {
+    [super viewDidLoad];
     if (!self.splitViewController) [self.spinner startAnimating];
-    [self updateMapAnnotations];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    if (self.splitViewController) [self updateMapAnnotations];
 }
 
 #pragma mark - Table view data source
