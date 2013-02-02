@@ -220,10 +220,10 @@
             </objects>
             <point key="canvasLocation" x="2113" y="-92"/>
         </scene>
-        <!--Map View Controller-->
+        <!--Flickr Map View Controller-->
         <scene sceneID="xHl-uG-B2W">
             <objects>
-                <viewController id="hvo-e3-moJ" customClass="MapViewController" sceneMemberID="viewController">
+                <viewController id="hvo-e3-moJ" customClass="FlickrMapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mkb-IQ-7Sl">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -354,10 +354,10 @@
             </objects>
             <point key="canvasLocation" x="2113" y="1220"/>
         </scene>
-        <!--Map View Controller-->
+        <!--Flickr Map View Controller-->
         <scene sceneID="wbt-io-EvN">
             <objects>
-                <viewController id="SBU-EY-0Cq" customClass="MapViewController" sceneMemberID="viewController">
+                <viewController id="SBU-EY-0Cq" customClass="FlickrMapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3q3-j2-ec2">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -392,6 +392,9 @@
         </scene>
     </scenes>
     <classes>
+        <class className="FlickrMapViewController" superclassName="MapViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrMapViewController.h"/>
+        </class>
         <class className="FlickrPhotoSelectorTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoSelectorTableViewController.h"/>
             <relationships>
@@ -432,9 +435,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="FoU-UR-Kcz"/>
         <segue reference="dXX-Hq-UfP"/>
+        <segue reference="FoU-UR-Kcz"/>
+        <segue reference="Xkn-pY-4wX"/>
         <segue reference="v2P-vH-cDu"/>
-        <segue reference="u9S-W3-Asd"/>
     </inferredMetricsTieBreakers>
 </document>

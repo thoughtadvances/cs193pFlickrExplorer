@@ -14,7 +14,7 @@
 #import "FlickrPhotoAnnotation.h"
 #import "SegmentedViewController.h"
 
-@interface FlickrPhotoSelectorTableViewController () <MapViewControllerDelegate>
+@interface FlickrPhotoSelectorTableViewController ()
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @end
 
@@ -48,9 +48,8 @@
 - (NSArray *)mapAnnotations {
     NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:
                                    [self.photos count]];
-    for (NSDictionary *photo in self.photos) {
+    for (NSDictionary *photo in self.photos)
         [annotations addObject:[FlickrPhotoAnnotation annotationForPhoto:photo]];
-    }
     return annotations;
 }
 
@@ -97,18 +96,13 @@
                              dequeueReusableCellWithIdentifier:CellIdentifier
                              forIndexPath:indexPath];
     
-    // most recent to least recent
     NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
-    
     id photoTitle = [photo objectForKey:FLICKR_PHOTO_TITLE];
     id photoDescription = [photo objectForKey:FLICKR_PHOTO_DESCRIPTION];
     
     // Set the cell text
     if (!photoDescription || ![photoDescription isKindOfClass:[NSString class]])
-    {
-        // ensure that the retrieved description meets all requirements
         photoDescription = @"";
-    }
     
     if (!photoTitle || [photoTitle isEqualToString:@""] ||
         ![photoTitle isKindOfClass:[NSString class]]) {
@@ -122,6 +116,7 @@
     }
     dispatch_queue_t downloadQueue = dispatch_queue_create("downloader",
                                                            NULL);
+    cell.imageView.image = nil;
     dispatch_async(downloadQueue, ^{
         NSURL *photoURL = [FlickrFetcher urlForPhoto:photo format:
                            FlickrPhotoFormatSquare];
@@ -130,8 +125,6 @@
         if (photoImage)
             dispatch_async(dispatch_get_main_queue(), ^{
                 cell.imageView.image = photoImage;
-                [self.tableView reloadRowsAtIndexPaths:@[indexPath]
-                                      withRowAnimation:UITableViewRowAnimationAutomatic];
             });
     });
     
@@ -142,7 +135,6 @@
 }
 
 #pragma mark - Table view delegate
-
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -156,7 +148,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 }
 
 #pragma mark - Other view controllers
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showPhoto"]) {
         [segue.destinationViewController setPhoto:self.selectedPhoto];
@@ -166,14 +157,4 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
         [segue.destinationViewController setDelegate:self];
     }
 }
-
-- (UIImage *)mapViewController:(MapViewController *)sender
-            imageForAnnotation:(id<MKAnnotation>)annotation {
-    FlickrPhotoAnnotation *flickrAnnotation = (FlickrPhotoAnnotation *)annotation;
-    NSURL *url = [FlickrFetcher urlForPhoto:flickrAnnotation.photo format:
-                  FlickrPhotoFormatSquare];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    return data ? [UIImage imageWithData:data] : nil;
-}
-
 @end
