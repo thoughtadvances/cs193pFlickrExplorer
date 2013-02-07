@@ -35,6 +35,7 @@
 		848E28511685743400A84B40 /* FlickrPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848E28501685743400A84B40 /* FlickrPhotoViewController.m */; };
 		848E285416858A2D00A84B40 /* RecentPhotosSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848E285316858A2D00A84B40 /* RecentPhotosSelectorTableViewController.m */; };
 		848E5DFF16AA7CEB00840F97 /* Test_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848E5DFE16AA7CEB00840F97 /* Test_iPad.storyboard */; };
+		848E78A216C4019A001416E5 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 848E78A116C4019A001416E5 /* Reachability.m */; };
 		84906ACC16AFC03E0010C242 /* SegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84906ACB16AFC03E0010C242 /* SegmentedViewController.m */; };
 		8494481816AE29E6009C599C /* ViewControllerSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 8494481716AE29E5009C599C /* ViewControllerSupport.m */; };
 		84E2319216BCF424005CF3DF /* FlickrMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E2319116BCF424005CF3DF /* FlickrMapViewController.m */; };
@@ -88,6 +89,8 @@
 		848E285216858A2D00A84B40 /* RecentPhotosSelectorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhotosSelectorTableViewController.h; sourceTree = "<group>"; };
 		848E285316858A2D00A84B40 /* RecentPhotosSelectorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentPhotosSelectorTableViewController.m; sourceTree = "<group>"; };
 		848E5DFE16AA7CEB00840F97 /* Test_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Test_iPad.storyboard; sourceTree = "<group>"; };
+		848E78A016C4019A001416E5 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = FlickrExplorer/Reachability.h; sourceTree = "<group>"; };
+		848E78A116C4019A001416E5 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = FlickrExplorer/Reachability.m; sourceTree = "<group>"; };
 		84906ACA16AFC03E0010C242 /* SegmentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentedViewController.h; sourceTree = "<group>"; };
 		84906ACB16AFC03E0010C242 /* SegmentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentedViewController.m; sourceTree = "<group>"; };
 		8494481616AE29E5009C599C /* ViewControllerSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerSupport.h; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 			isa = PBXGroup;
 			children = (
 				84E2319016BCF424005CF3DF /* FlickrMapViewController.h */,
+				848E78A016C4019A001416E5 /* Reachability.h */,
+				848E78A116C4019A001416E5 /* Reachability.m */,
 				84E2319116BCF424005CF3DF /* FlickrMapViewController.m */,
 				841E793E16A91ADA00480E01 /* CoreLocation.framework */,
 				841E793B16A91AD200480E01 /* MapKit.framework */,
@@ -379,6 +384,7 @@
 				848800AB16B422FE00A5496D /* FlickrPlaceAnnotation.m in Sources */,
 				848800B216B4292D00A5496D /* FlickrPhotoAnnotation.m in Sources */,
 				84E2319216BCF424005CF3DF /* FlickrMapViewController.m in Sources */,
+				848E78A216C4019A001416E5 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
