@@ -15,7 +15,8 @@
 #import "SegmentedViewController.h"
 
 @interface FlickrPhotoSelectorTableViewController ()
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView* spinner;
+@property (nonatomic, strong) NSDictionary* thumbnailImages;
 @end
 
 @implementation FlickrPhotoSelectorTableViewController
@@ -32,14 +33,15 @@
 }
 
 - (void)getPhotos {
-    [self.spinner startAnimating];
+//    [self.spinner startAnimating];
+    [self.refreshControl beginRefreshing];
     dispatch_queue_t downloadQueue = dispatch_queue_create("downloader",
                                                            NULL);
-    [self.spinner startAnimating];
     dispatch_async(downloadQueue, ^{
         self.photos = [FlickrFetcher photosInPlace:self.place maxResults:5];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.spinner stopAnimating];
+            [self.refreshControl endRefreshing];
+//            [self.spinner stopAnimating];
             [self.tableView reloadData];
         });
     });
@@ -52,7 +54,6 @@
         [annotations addObject:[FlickrPhotoAnnotation annotationForPhoto:photo]];
     return annotations;
 }
-
 
 # pragma mark Lifecycle methods
 
@@ -68,17 +69,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (!self.splitViewController) [self.spinner startAnimating];
+    [self.refreshControl addTarget:self action:@selector(getPhotos) forControlEvents:UIControlEventValueChanged];
+//    if (!self.splitViewController) [self.spinner startAnimating];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     if (self.splitViewController) [self updateMapAnnotations];
 }
+- (NSDictionary*)thumbnailImages {
+    if (!_thumbnailImages) { // init if doesn't exist
+        _thumbnailImages = [[NSDictionary alloc] init];
+    }
+    return _thumbnailImages;
+}
+
+//
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section
-{
+ numberOfRowsInSection:(NSInteger)section {
     return [self.photos count];
 }
 
@@ -103,34 +112,55 @@
         photoDescription = @""; // Title and description should not show same
     }
     
-    if ([photoTitle isEqualToString:@""]) {
-        // If also no description, then set standard title
-        photoTitle = @"Unknown";
+    // If also no description, then set standard title
+    if ([photoTitle isEqualToString:@""]) photoTitle = @"Unknown";
+    
+    UIImage* thumbnailImage;
+    // Fetch the image if it does not exist
+    if (![self.thumbnailImages objectForKey:photo])
+        [self fetchThumbnailForPhoto:photo atIndexPath:indexPath];
+    
+    thumbnailImage = [self.thumbnailImages objectForKey:photo];
+    // Set the image if it does exist
+    if (thumbnailImage) {
+        NSLog(@"thumbnailImage exists");
     }
+    if (thumbnailImage) cell.imageView.image = thumbnailImage;
+    cell.textLabel.text = photoTitle;
+    cell.detailTextLabel.text = photoDescription;
+    return cell;
+}
+
+// Asyncronously fetch the thumbnail image for the photo in the row indexPath.row
+- (void)fetchThumbnailForPhoto:(NSDictionary*)photo
+                   atIndexPath:(NSIndexPath*)indexPath {
+    __block UIImage* photoImage;
     dispatch_queue_t downloadQueue = dispatch_queue_create("downloader",
                                                            NULL);
-    cell.imageView.image = nil;
     dispatch_async(downloadQueue, ^{
         NSURL *photoURL = [FlickrFetcher urlForPhoto:photo format:
                            FlickrPhotoFormatSquare];
         NSData *imageData = [NSData dataWithContentsOfURL:photoURL];
-        UIImage *photoImage = [UIImage imageWithData:imageData];
-        if (photoImage)
-            dispatch_async(dispatch_get_main_queue(), ^{
-                cell.imageView.image = photoImage;
-            });
+        photoImage = [UIImage imageWithData:imageData];
+        NSMutableDictionary* mutableThumbnailImages;
+        if (photoImage) { // Store the photo in the dictionary
+            mutableThumbnailImages = [self.thumbnailImages mutableCopy];
+            [mutableThumbnailImages setObject:photoImage forKey:photo];
+            self.thumbnailImages = [mutableThumbnailImages copy];
+        }
+        else photoImage = [self.thumbnailImages objectForKey:photo];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update the cell now that the image is stored
+            [self.tableView
+             reloadRowsAtIndexPaths:@[indexPath]
+             withRowAnimation:UITableViewRowAnimationAutomatic];
+        });
     });
-    
-    cell.textLabel.text = photoTitle;
-    cell.detailTextLabel.text = photoDescription;
-    
-    return cell;
 }
 
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.selectedPhoto = [self.photos objectAtIndex:indexPath.row];
     if (self.splitViewController) {
         id detail = [self.splitViewController.viewControllers lastObject];
