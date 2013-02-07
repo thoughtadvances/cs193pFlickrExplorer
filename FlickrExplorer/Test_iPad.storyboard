@@ -48,6 +48,9 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Recent Photos" id="2xs-WE-wbY"/>
                     <navigationItem key="navigationItem" title="Recent Photos" id="VZs-xv-ahb"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="BK3-Ps-4mN">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                     <connections>
                         <outlet property="spinner" destination="dMI-LH-T7n" id="Juq-mn-RDU"/>
                     </connections>
@@ -101,6 +104,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Top Places" id="bfV-yH-hyf"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="FRg-NU-nUR">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                     <connections>
                         <outlet property="spinner" destination="Qc1-xB-Iw0" id="9sB-R2-hXu"/>
                         <segue destination="65G-et-8PM" kind="push" identifier="PlacePhotos" id="AFV-1E-30Y"/>
@@ -155,6 +161,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="oNB-7O-RLB"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="edd-55-Lcv">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                     <connections>
                         <outlet property="spinner" destination="1Zc-GM-8dY" id="hCe-Y5-f71"/>
                     </connections>
@@ -407,6 +416,9 @@
                 <relationship kind="outlet" name="contentView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
             </relationships>
+        </class>
+        <class className="UIRefreshControl" superclassName="UIControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIRefreshControl.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

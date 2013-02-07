@@ -53,6 +53,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="73w-Ih-IMN">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                     <connections>
                         <outlet property="spinner" destination="q3e-8K-9m1" id="436-s5-0EO"/>
                         <segue destination="nxP-ei-n6N" kind="push" identifier="PlacePhotos" id="u9S-W3-Asd"/>
@@ -113,6 +116,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="4U5-Bs-gU2">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                     <connections>
                         <outlet property="spinner" destination="9eP-js-Zjn" id="84S-W8-z9J"/>
                         <segue destination="4Wd-Zq-qDW" kind="push" identifier="showPhoto" id="Icb-jJ-Eep"/>
@@ -173,6 +179,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="0ZB-cn-TWA">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                     <connections>
                         <outlet property="spinner" destination="BBm-9b-4bL" id="NFJ-EW-NAT"/>
                         <segue destination="yNH-Gd-2iC" kind="push" identifier="showPhoto" id="bgE-dR-j5k"/>
@@ -191,13 +200,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" minimumZoomScale="0.20000000000000001" maximumZoomScale="2" id="Yb2-Ur-wD7">
-                                <rect key="frame" x="-20" y="-20" width="360" height="495"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="TopLeft" id="hdb-hc-zQb">
-                                        <rect key="frame" x="20" y="20" width="320" height="455"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -330,7 +339,7 @@
                                     <imageView userInteractionEnabled="NO" contentMode="TopLeft" id="JaF-gg-V82">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -428,6 +437,9 @@
         <class className="RecentPhotosSelectorTableViewController" superclassName="FlickrPhotoSelectorTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentPhotosSelectorTableViewController.h"/>
         </class>
+        <class className="UIRefreshControl" superclassName="UIControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIRefreshControl.h"/>
+        </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -435,9 +447,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="bgE-dR-j5k"/>
+        <segue reference="u9S-W3-Asd"/>
         <segue reference="dXX-Hq-UfP"/>
-        <segue reference="FoU-UR-Kcz"/>
-        <segue reference="Xkn-pY-4wX"/>
-        <segue reference="v2P-vH-cDu"/>
+        <segue reference="Icb-jJ-Eep"/>
     </inferredMetricsTieBreakers>
 </document>
