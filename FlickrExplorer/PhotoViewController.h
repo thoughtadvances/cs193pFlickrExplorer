@@ -10,4 +10,7 @@
 
 @interface PhotoViewController : UIViewController
 @property (nonatomic, strong) UIImage *image; // image to be displayed
+// spinning gear to show while downloading the image.  Commands for
+//  operating the spinner should be set in the subclass
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *spinner;
 @end
