@@ -9,24 +9,34 @@
 #import "RecentPhotosSelectorTableViewController.h"
 #import "FlickrExplorerAppDelegate.h" // NSUserDefaults defines
 
-@interface RecentPhotosSelectorTableViewController ()
-
-@end
-
 @implementation RecentPhotosSelectorTableViewController
 
-- (NSArray *)recentPhotos { // get recent photos NSUserDefaults preference
+@synthesize reach = _reach; // synthesize inherited @property
+
+- (Reachability*)reach {
+    if (!_reach) { // init if doesn't exist
+        _reach = [Reachability reachabilityWithHostname:@"www.flickr.com"];
+        [_reach startNotifier]; // TODO: Is this necessary?
+    }
+    return _reach;
+}
+- (NSArray *)getRecentPhotos { // get recent photos NSUserDefaults preference
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
     return [defaults objectForKey:RECENT_PHOTOS];
 }
 
+# pragma mark - Lifecycle methods
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.refreshControl addTarget:self action:@selector(getRecentPhotos)
+                  forControlEvents:UIControlEventValueChanged];
+}
 - (void)viewWillAppear:(BOOL)animated { // update photos on every showing
     [super viewWillAppear:animated];
-    NSArray *recentPhotos = [self recentPhotos];
+    NSArray *recentPhotos = [self getRecentPhotos];
     if (![recentPhotos isEqualToArray:self.photos]) {
         self.photos = recentPhotos; // get new recents
     }
 }
-
 @end
