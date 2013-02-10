@@ -34,6 +34,7 @@
 		848E0D7F16A8E8FC005509B8 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848E0D7E16A8E8FC005509B8 /* MapViewController.m */; };
 		848E28511685743400A84B40 /* FlickrPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848E28501685743400A84B40 /* FlickrPhotoViewController.m */; };
 		848E285416858A2D00A84B40 /* RecentPhotosSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848E285316858A2D00A84B40 /* RecentPhotosSelectorTableViewController.m */; };
+		848E5A1016C484F8005E3E92 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 848E5A0F16C484F8005E3E92 /* SystemConfiguration.framework */; };
 		848E5DFF16AA7CEB00840F97 /* Test_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848E5DFE16AA7CEB00840F97 /* Test_iPad.storyboard */; };
 		848E78A216C4019A001416E5 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 848E78A116C4019A001416E5 /* Reachability.m */; };
 		84906ACC16AFC03E0010C242 /* SegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84906ACB16AFC03E0010C242 /* SegmentedViewController.m */; };
@@ -88,6 +89,7 @@
 		848E28501685743400A84B40 /* FlickrPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrPhotoViewController.m; sourceTree = "<group>"; };
 		848E285216858A2D00A84B40 /* RecentPhotosSelectorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhotosSelectorTableViewController.h; sourceTree = "<group>"; };
 		848E285316858A2D00A84B40 /* RecentPhotosSelectorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentPhotosSelectorTableViewController.m; sourceTree = "<group>"; };
+		848E5A0F16C484F8005E3E92 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		848E5DFE16AA7CEB00840F97 /* Test_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Test_iPad.storyboard; sourceTree = "<group>"; };
 		848E78A016C4019A001416E5 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = FlickrExplorer/Reachability.h; sourceTree = "<group>"; };
 		848E78A116C4019A001416E5 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = FlickrExplorer/Reachability.m; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				848E5A1016C484F8005E3E92 /* SystemConfiguration.framework in Frameworks */,
 				841E793F16A91ADA00480E01 /* CoreLocation.framework in Frameworks */,
 				841E793C16A91AD200480E01 /* MapKit.framework in Frameworks */,
 				848A2EDD1684A0BC008E0062 /* UIKit.framework in Frameworks */,
@@ -151,6 +154,7 @@
 		848A2ECD1684A0BB008E0062 = {
 			isa = PBXGroup;
 			children = (
+				848E5A0F16C484F8005E3E92 /* SystemConfiguration.framework */,
 				84E2319016BCF424005CF3DF /* FlickrMapViewController.h */,
 				848E78A016C4019A001416E5 /* Reachability.h */,
 				848E78A116C4019A001416E5 /* Reachability.m */,
