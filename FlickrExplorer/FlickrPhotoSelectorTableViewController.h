@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Reachability.h"
 
 // Take an NSArray of NSDictionaries containing information about photos and
 //  display these photos in a UITableViewController
@@ -15,5 +16,8 @@
 // NSArray of Flickr NSDictionary photo information
 @property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, strong) NSDictionary *place;
+// The Flickr photo NSDictionary of the photo that was selected
 @property (nonatomic, strong) NSDictionary *selectedPhoto;
+// Internet connection testing for subclasses to access
+@property (nonatomic, strong) Reachability* reach;
 @end

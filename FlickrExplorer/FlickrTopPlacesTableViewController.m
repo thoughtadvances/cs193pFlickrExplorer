@@ -14,6 +14,7 @@
 #import "SegmentedViewController.h"
 #import "FlickrPlaceAnnotation.h"
 #import <dispatch/queue.h>
+#import "Reachability.h"
 
 @interface FlickrTopPlacesTableViewController ()
 // TODO: Create a custom data Class TACountry which stores this more easily
@@ -22,10 +23,12 @@
 @property (nonatomic, strong) NSArray* places; // unorganized places array
 @property (nonatomic, strong) NSDictionary *selectedPlace;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) Reachability* reach;
 @end
 
 @implementation FlickrTopPlacesTableViewController
 
+# pragma mark - Setters and getters
 - (void)setCountries:(NSArray *)countries {
     _countries = countries;
     [self updateMapAnnotations];
@@ -33,6 +36,15 @@
         [self.tableView reloadData];
     });
 }
+
+- (Reachability*)reach {
+    if (!_reach) { // init if doesn't exist
+        _reach = [Reachability reachabilityWithHostname:@"www.flickr.com"];
+        [_reach startNotifier]; // TODO: Is this necessary?
+    }
+    return _reach;
+}
+
 
 - (NSArray *)mapAnnotations {
     NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:
@@ -126,28 +138,39 @@
 }
 
 - (void)getCountries {
-    [self.spinner startAnimating];
+    [self.refreshControl beginRefreshing];
     dispatch_queue_t downloadQueue = dispatch_queue_create("downloader",
                                                            NULL);
     dispatch_async(downloadQueue, ^{
-        self.places = [FlickrFetcher topPlaces];
+        if (self.reach.isReachable) self.places = [FlickrFetcher topPlaces];
+        else {}// Warn the user
         self.countries = [FlickrTopPlacesTableViewController
                           makeArrayOfTopPlacesByCountry:self.places];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.spinner stopAnimating];
+            [self.refreshControl endRefreshing];
         });
     });
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self updateMapAnnotations];
-}
-
+# pragma mark - Lifecycle methods
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.spinner.hidesWhenStopped = YES;
+    [self.refreshControl addTarget:self
+                            action:@selector(getCountries)
+                  forControlEvents:UIControlEventValueChanged];
+//    self.reach.reachableBlock = ^(Reachability* reach) {
+//        [self getCountries];
+//    };
     [self getCountries];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // Unselect the selected row if any
+	NSIndexPath* selection = [self.tableView indexPathForSelectedRow];
+	if (selection)
+		[self.tableView deselectRowAtIndexPath:selection animated:YES];
+    [self updateMapAnnotations];
 }
 
 #pragma mark - Table view data source
