@@ -34,7 +34,7 @@
                                        self.mapView.annotations];
         if (self.annotations && [self.annotations count] != 0) {
             [self.mapView addAnnotations:self.annotations];
-            [self setMapViewRegion]; // TODO: Does setting this here work?
+            [self setMapViewRegion];
         }
     }
 }
@@ -57,11 +57,12 @@
 
 - (void)setMapViewRegion {
     // Show all annotations on screen
-    double maxLatitude = 0;
-    double minLatitude = 0;
-    double maxLongitude = 0;
-    double minLongitude = 0;
-    NSLog(@"self.annotations = %@", self.annotations);
+    // Set to max possible values so that any real coordinate will always
+    //  make the following conditions true on the first pass
+    double maxLatitude = -90;
+    double minLatitude = 90;
+    double maxLongitude = -180;
+    double minLongitude = 180;
     for (id<MKAnnotation> annotation in self.annotations) { // get bounds
         if (annotation.coordinate.latitude) {
             NSLog(@"Coordinates: %f, %f", annotation.coordinate.latitude, annotation.coordinate.longitude);
@@ -74,26 +75,25 @@
             else if (annotation.coordinate.longitude < minLongitude)
                 minLongitude = annotation.coordinate.longitude;
         }
+        NSLog(@"maxLongitude = %g", maxLongitude);
     }
+    
     // width and height
     CLLocationCoordinate2D bottomLeftPoint = {minLatitude, minLongitude};
     CLLocationCoordinate2D topRightPoint = {maxLatitude, maxLongitude};
-    NSLog(@"bottomLeftPoint = %f, %f", bottomLeftPoint.latitude, bottomLeftPoint.longitude);
-    NSLog(@"topRightPoints = %f, %f", topRightPoint.latitude, bottomLeftPoint.longitude);
-    double width = MKMapPointForCoordinate(topRightPoint).x -
-    MKMapPointForCoordinate(bottomLeftPoint).x;
-    double height = MKMapPointForCoordinate(topRightPoint).y -
-    MKMapPointForCoordinate(bottomLeftPoint).y;
+    double latitudeDelta = fabs(topRightPoint.latitude -
+                                bottomLeftPoint.latitude);
+    double longitudeDelta = fabs(topRightPoint.longitude -
+                                 bottomLeftPoint.longitude);
+    // padding
+    latitudeDelta += latitudeDelta * 0.6;
+    longitudeDelta += longitudeDelta * 0.2;
     // center
-    double latitudeCenter = (maxLatitude - minLatitude ) / 2;
-    double longitudeCenter = (maxLongitude - minLongitude) / 2;
+    double latitudeCenter = (maxLatitude + minLatitude ) / 2;
+    double longitudeCenter = (maxLongitude + minLongitude) / 2;
     CLLocationCoordinate2D center = {latitudeCenter, longitudeCenter};
     // set it
-    MKMapRect finalRegion = {MKMapPointForCoordinate(center),
-        MKMapSizeMake(width, height)};
-    [self.mapView setVisibleMapRect:finalRegion
-                        edgePadding:UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0)
-                           animated:NO];
+    [self.mapView setRegion:MKCoordinateRegionMake(center, MKCoordinateSpanMake(latitudeDelta, longitudeDelta))];
     
 }
 
