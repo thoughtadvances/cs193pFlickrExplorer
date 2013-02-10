@@ -28,13 +28,17 @@ UISplitViewControllerDelegate>
 
 - (void)updateImage {
     self.imageView.image = self.image;
+    [self setSizes];
+    [self setScrollViewZoom];
+    [self.imageView setNeedsDisplay]; // update screen on UIImage change
+}
+
+- (void)setSizes {
     self.imageView.frame = CGRectMake(0, 0,
                                       self.imageView.image.size.width,
                                       self.imageView.image.size.height);
     self.scrollView.contentSize = CGSizeMake(self.imageView.image.size.width,
                                              self.imageView.image.size.height);
-    [self setScrollViewZoom];
-    [self.imageView setNeedsDisplay]; // update screen on UIImage change
 }
 
 - (void)setScrollViewZoom { // show as much of image with no whitespace
@@ -68,12 +72,12 @@ UISplitViewControllerDelegate>
     self.spinner.frame = CGRectMake(0, 0, centerX, centerY);
     self.spinner.frame = CGRectMake(centerX, centerY, 0, 0);
     // Set here for rotations
-//    if (self.imageView.image) [self setScrollViewBounds];
+    //    if (self.imageView.image) [self setScrollViewBounds];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    if (self.imageView.image) [self setScrollViewBounds];
+    //    if (self.imageView.image) [self setScrollViewBounds];
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
