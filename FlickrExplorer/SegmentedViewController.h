@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <objc/objc-runtime.h>
 #import "DetailViewController.h"
 
 // This is a reusable UIViewController which allows switching between
@@ -18,7 +17,7 @@
 
 // An Array of UIViewControllers which are the view controllers in the
 //  UISegmentedButton, from left to right
-@property (nonatomic, strong, readonly) NSArray* viewControllers;
+@property (nonatomic, readonly) NSArray* viewControllers;
 
 // Programatically switch to the segment whose UIViewController's ID is
 //  viewControllerName.  viewControllerName must be defined in the
@@ -29,5 +28,5 @@
 - (UIViewController*)getViewControllerWithID:(NSString*)viewControllerID;
 
 // The view controller associated with the currently selected segment
-@property (strong, nonatomic, readonly) UIViewController* selectedViewController;
+@property (nonatomic, readonly) UIViewController* selectedViewController;
 @end
