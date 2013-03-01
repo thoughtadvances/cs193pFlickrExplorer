@@ -12,7 +12,7 @@
 
 // TODO: Metaprogram it so that it replaces all instances of `self` with
 //  `sender`
-// TOOD: Is there any way to enforce that something calling this method has
+// TODO: Is there any way to enforce that something calling this method has
 //  an object spinner?
 // TODO: Force it to assume that sender has a spinner @property?
 

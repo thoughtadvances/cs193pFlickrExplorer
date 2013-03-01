@@ -72,7 +72,6 @@ calloutAccessoryControlTapped:(UIControl *)control {
                                           [FlickrPlaceAnnotation class]]) {
         id master = [ViewControllerSupport getNonNavigationControllerFor:
                      [self.splitViewController.viewControllers objectAtIndex:0]];
-        NSLog(@"master's type = %@", [master class]);
         [master performSegueWithIdentifier:@"PlacePhotos" sender:view.annotation];
     }
     else if ([view.annotation isKindOfClass:[FlickrPhotoAnnotation class]])
@@ -84,18 +83,8 @@ calloutAccessoryControlTapped:(UIControl *)control {
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"PlacePhotos"]) {
-        // TODO: Can this be moved to within the FlickrPhotoViewController
-        //  class?  Is there somewhere where the title change will be
-        //  visible before it comes on screen?
-        //        if ([sender respondsToSelector:@selector(selectedPlace)]) {
-        //            [segue.destinationViewController setTitle:[[sender selectedPlace]
-        //                                                       objectForKey:
-        //                                                       FLICKR_PLACE_NAME]];
-        
-        //        }
+    if ([segue.identifier isEqualToString:@"PlacePhotos"])
         [segue.destinationViewController setPlace:sender];
-    }
     else if ([segue.identifier isEqualToString:@"showTablePhoto"])
         [segue.destinationViewController setPhoto:[sender selectedPhoto]];
     else if ([segue.identifier isEqualToString:@"showPhoto"])

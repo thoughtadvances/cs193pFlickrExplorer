@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 
 @interface FlickrPhotoAnnotation : NSObject <MKAnnotation>
-// Takes a Flickr photo dictionary
+// Takes a Flickr photo dictionary and creates an annotation from it
 + (FlickrPhotoAnnotation *)annotationForPhoto:(NSDictionary *)photo;
 @property (nonatomic, strong) NSDictionary *photo; // Flickr photo dictionary
 @end

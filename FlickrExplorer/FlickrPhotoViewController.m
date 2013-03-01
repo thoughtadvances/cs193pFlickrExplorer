@@ -32,15 +32,14 @@
         NSString *photoID = [self.photo objectForKey:FLICKR_PHOTO_ID];
         NSURL* filePath = [applicationDirectory URLByAppendingPathComponent:
                            photoID];
-        NSLog(@"filePath = %@", [filePath path]);
         NSNumber* size = [IOSupport sizeOfDirectory:applicationDirectory];
         NSLog(@"size of the image cache is %@", size);
         if ([size doubleValue] > 10) { // delete oldest accessed file
             NSURL *oldFile = [IOSupport
                               oldestAccessedFileInDirectory:applicationDirectory];
+            NSLog(@"Trying to delete the file %@", [oldFile path]);
             [defaultManager removeItemAtURL:oldFile error:nil];
         }
-        NSLog(@"filePath = %@", [filePath path]);
         [defaultManager createFileAtPath:[filePath path] contents:data
                               attributes:nil];
     });
@@ -63,7 +62,6 @@
     [self.spinner startAnimating];
     dispatch_queue_t downloadQueue = dispatch_queue_create("downloader",
                                                            nil);
-    
     dispatch_async(downloadQueue, ^{
         NSString *photoID = [self.photo objectForKey:FLICKR_PHOTO_ID];
         NSData *photoData = [self getCachedPhotoWithID:photoID];
@@ -98,7 +96,7 @@
 # pragma mark Lifecycle functions
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (!self.splitViewController) [self.spinner startAnimating];
+    if (!self.splitViewController && !self.image) [self.spinner startAnimating];
     // startAnimating call in setPhoto doesn't
     //  work when segueing to this view controller
 

@@ -10,7 +10,6 @@
 #import "FlickrFetcher.h"
 
 @implementation FlickrPhotoAnnotation
-
 + (FlickrPhotoAnnotation *)annotationForPhoto:(NSDictionary *)photo {
     FlickrPhotoAnnotation *annotation = [[FlickrPhotoAnnotation alloc] init];
     annotation.photo = photo;
@@ -33,5 +32,4 @@
                             doubleValue];
     return coordinate;
 }
-
 @end
