@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FlickrPlacesTableViewController.h"
 
-@interface FlickrTopPlacesTableViewController : UITableViewController
+@interface FlickrTopPlacesTableViewController : FlickrPlacesTableViewController
 @end

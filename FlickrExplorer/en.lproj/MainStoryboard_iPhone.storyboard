@@ -12,10 +12,6 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <activityIndicatorView key="tableFooterView" hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="q3e-8K-9m1">
-                            <rect key="frame" x="0.0" y="66" width="320" height="20"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Place" textLabel="dib-n8-ZHM" detailTextLabel="IeW-eq-0Le" style="IBUITableViewCellStyleSubtitle" id="5xB-hl-vcW">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -57,7 +53,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                     <connections>
-                        <outlet property="spinner" destination="q3e-8K-9m1" id="436-s5-0EO"/>
                         <segue destination="nxP-ei-n6N" kind="push" identifier="PlacePhotos" id="u9S-W3-Asd"/>
                     </connections>
                 </tableViewController>
@@ -73,10 +68,6 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <activityIndicatorView key="tableFooterView" hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="9eP-js-Zjn">
-                            <rect key="frame" x="0.0" y="66" width="320" height="20"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo" textLabel="GkK-LX-vfN" detailTextLabel="4Ud-uz-ZWe" style="IBUITableViewCellStyleSubtitle" id="p93-iP-edt">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -120,7 +111,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                     <connections>
-                        <outlet property="spinner" destination="9eP-js-Zjn" id="84S-W8-z9J"/>
                         <segue destination="4Wd-Zq-qDW" kind="push" identifier="showPhoto" id="Icb-jJ-Eep"/>
                     </connections>
                 </tableViewController>
@@ -136,10 +126,6 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <activityIndicatorView key="tableFooterView" hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="BBm-9b-4bL">
-                            <rect key="frame" x="0.0" y="66" width="320" height="20"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo" textLabel="vG9-yX-742" detailTextLabel="5lF-yq-sRR" style="IBUITableViewCellStyleSubtitle" id="x6O-OI-ixm">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -183,7 +169,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                     <connections>
-                        <outlet property="spinner" destination="BBm-9b-4bL" id="NFJ-EW-NAT"/>
                         <segue destination="yNH-Gd-2iC" kind="push" identifier="showPhoto" id="bgE-dR-j5k"/>
                     </connections>
                 </tableViewController>
@@ -689,6 +674,9 @@
         </class>
         <class className="FlickrTopPlacesTableViewController" superclassName="FlickrPlacesTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrTopPlacesTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
         </class>
         <class className="ItineraryTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ItineraryTableViewController.h"/>
