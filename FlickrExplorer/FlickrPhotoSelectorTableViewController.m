@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 ThoughtAdvances. All rights reserved.
 //
 
-#import "FlickrPhotoSelectorTableViewController.h"
-#import "FlickrPhotoViewController.h"
-#import "FlickrFetcher.h"
-#import <MapKit/MapKit.h>
-#import "MapViewController.h"
-#import "FlickrPhotoAnnotation.h"
-#import "SegmentedViewController.h"
+#import "FlickrPhotoSelectorTableViewController.h"  // self
+#import "FlickrFetcher.h"                           // Flickr dictionary keys
+#import <MapKit/MapKit.h>                           // annotation creation
+#import "MapViewController.h"                       // segue
+#import "FlickrPhotoViewController.h"               // segue
+#import "FlickrPhotoAnnotation.h"                   //
+#import "SegmentedViewController.h"                 // ipad view switching
 
 @interface FlickrPhotoSelectorTableViewController ()
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView* spinner;
@@ -174,19 +174,21 @@
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.selectedPhoto = [self.photos objectAtIndex:indexPath.row];
-    if (self.splitViewController) {
+    NSDictionary* selectedPhoto = [self.photos objectAtIndex:indexPath.row];
+    if (self.splitViewController) { // ipad
         id detail = [self.splitViewController.viewControllers lastObject];
         [detail changeToViewControllerNamed:@"PhotoViewController"];
         detail = [detail getViewControllerWithID:@"PhotoViewController"];
-        [(id)detail setPhoto:self.selectedPhoto];
-    } else [self performSegueWithIdentifier:@"showPhoto" sender:self];
+        [(id)detail setPhoto:selectedPhoto];
+    }
 }
 
 #pragma mark - Other view controllers
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showPhoto"]) {
-        [segue.destinationViewController setPhoto:self.selectedPhoto];
+        NSIndexPath* indexPath = [self.tableView indexPathForSelectedRow];
+        [segue.destinationViewController
+         setPhoto:[self.photos objectAtIndex:indexPath.row]];
     }
     else if ([segue.identifier isEqualToString:@"showMap"]) {
         [segue.destinationViewController setAnnotations:[self mapAnnotations]];

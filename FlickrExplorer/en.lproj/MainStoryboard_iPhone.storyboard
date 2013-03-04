@@ -35,6 +35,9 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <segue destination="nxP-ei-n6N" kind="push" identifier="PlacePhotos" id="dA4-DO-fC9"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -52,9 +55,6 @@
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="73w-Ih-IMN">
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
-                    <connections>
-                        <segue destination="nxP-ei-n6N" kind="push" identifier="PlacePhotos" id="u9S-W3-Asd"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nk5-NV-Oav" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -91,6 +91,9 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <segue destination="4Wd-Zq-qDW" kind="push" identifier="showPhoto" id="SWe-Z1-9ai"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -110,9 +113,6 @@
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="4U5-Bs-gU2">
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
-                    <connections>
-                        <segue destination="4Wd-Zq-qDW" kind="push" identifier="showPhoto" id="Icb-jJ-Eep"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yle-vZ-yqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -151,6 +151,9 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <segue destination="yNH-Gd-2iC" kind="push" identifier="showPhoto" id="fpX-iu-h8T"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -168,9 +171,6 @@
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="0ZB-cn-TWA">
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
-                    <connections>
-                        <segue destination="yNH-Gd-2iC" kind="push" identifier="showPhoto" id="bgE-dR-j5k"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tsj-I8-RRa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -212,7 +212,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZf-wZ-8OZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2113" y="-92"/>
+            <point key="canvasLocation" x="2173" y="-264"/>
         </scene>
         <!--Flickr Map View Controller-->
         <scene sceneID="xHl-uG-B2W">
@@ -249,7 +249,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pcG-yr-Ct5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2113" y="-749"/>
+            <point key="canvasLocation" x="2173" y="-921"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="NsU-wb-IB1">
@@ -598,7 +598,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jR2-K1-UP3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2639" y="1220"/>
+            <point key="canvasLocation" x="2505" y="896"/>
         </scene>
         <!--Flickr Map View Controller-->
         <scene sceneID="wbt-io-EvN">
@@ -634,7 +634,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LOt-6y-Sty" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2639" y="561"/>
+            <point key="canvasLocation" x="2505" y="237"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9yl-OV-Zm5">
@@ -674,9 +674,6 @@
         </class>
         <class className="FlickrTopPlacesTableViewController" superclassName="FlickrPlacesTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrTopPlacesTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
-            </relationships>
         </class>
         <class className="ItineraryTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ItineraryTableViewController.h"/>
@@ -715,9 +712,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="u9S-W3-Asd"/>
         <segue reference="dXX-Hq-UfP"/>
-        <segue reference="Icb-jJ-Eep"/>
-        <segue reference="bgE-dR-j5k"/>
+        <segue reference="Xkn-pY-4wX"/>
+        <segue reference="SWe-Z1-9ai"/>
+        <segue reference="v2P-vH-cDu"/>
     </inferredMetricsTieBreakers>
 </document>

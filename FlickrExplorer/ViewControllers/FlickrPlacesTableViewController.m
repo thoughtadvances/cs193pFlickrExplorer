@@ -15,16 +15,16 @@
 @interface FlickrPlacesTableViewController ()
 // TODO: Create a custom data Class TACountry which stores this more easily
 // Flickr countries presented in the table view
+
 // sorted Flickr places ready for display
 @property (nonatomic, strong) NSArray* sortedPlaces;
-@property (nonatomic, strong) NSDictionary *selectedPlace;
 @end
 
 @implementation FlickrPlacesTableViewController
 - (void)setPlaces:(NSArray *)places { // sort new places into sortedPlaces
     _places = places;
     self.sortedPlaces = [FlickrPlacesTableViewController
-                         makeArrayOfPlacesByCountry:self.places];    
+                         makeArrayOfPlacesByCountry:self.places];
 }
 
 - (void)setSortedPlaces:(NSArray *)sortedPlaces { // display new places
@@ -198,23 +198,28 @@
     return cell;
 }
 
-#pragma mark - Table view delegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:
-(NSIndexPath *)indexPath
-{
+- (NSDictionary*)placeAtIndexPath:(NSIndexPath*)indexPath {
     NSDictionary *country = [self.sortedPlaces objectAtIndex:indexPath.section];
     NSArray *places = [country objectForKey:@"places"];
-    self.selectedPlace = [places objectAtIndex:indexPath.row];
-    // This segue must be manual because otherwise the segue is called
-    //      before the indexPath is updated
-    [self performSegueWithIdentifier:@"PlacePhotos" sender:self];
+    return [places objectAtIndex:indexPath.row];
 }
+
+#pragma mark - Table view delegate
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:
+//(NSIndexPath *)indexPath
+//{
+//    // This segue must be manual because otherwise the segue is called
+//    //      before the indexPath is updated
+//    [self performSegueWithIdentifier:@"PlacePhotos" sender:self];
+//}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"PlacePhotos"]) {
+        NSIndexPath* indexPath = [self.tableView indexPathForSelectedRow];
+        NSDictionary* selectedPlace = [self placeAtIndexPath:indexPath];
         [segue.destinationViewController
-         setTitle:[self.selectedPlace objectForKey:FLICKR_PLACE_NAME]];
-        [segue.destinationViewController setPlace:self.selectedPlace];
+         setTitle:[selectedPlace objectForKey:FLICKR_PLACE_NAME]];
+        [segue.destinationViewController setPlace:selectedPlace];
     }
     else if ([segue.identifier isEqualToString:@"showMap"]) {
         [segue.destinationViewController setAnnotations:[self mapAnnotations]];
