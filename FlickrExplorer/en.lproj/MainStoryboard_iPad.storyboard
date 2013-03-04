@@ -46,10 +46,6 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="739"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" style="gray" id="Y9Y-qz-sUy">
-                            <rect key="frame" x="0.0" y="66" width="320" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Place" textLabel="Rnq-1w-Xf0" detailTextLabel="Gk6-bH-bPz" style="IBUITableViewCellStyleSubtitle" id="NoU-Qk-nrV">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -84,7 +80,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Top Places" id="Pcw-jm-kAd"/>
                     <connections>
-                        <outlet property="spinner" destination="Y9Y-qz-sUy" id="Cnm-aU-2mB"/>
                         <segue destination="Ucc-lJ-HDU" kind="push" identifier="PlacePhotos" id="OFl-kh-ued"/>
                     </connections>
                 </tableViewController>
@@ -100,10 +95,6 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="739"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" style="gray" id="vxU-ur-XBs">
-                            <rect key="frame" x="0.0" y="66" width="320" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo" textLabel="rB9-Lw-Aut" detailTextLabel="dZr-TU-3BP" style="IBUITableViewCellStyleSubtitle" id="tnG-AE-B8h">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -138,9 +129,6 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Recent Photos" id="ELU-ai-fzc"/>
                     <navigationItem key="navigationItem" title="Photo Selector" id="WWO-N3-h1j"/>
-                    <connections>
-                        <outlet property="spinner" destination="vxU-ur-XBs" id="p9r-RS-AgO"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6TF-oq-uma" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -154,10 +142,6 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="739"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" style="gray" id="BDd-Bt-GYj">
-                            <rect key="frame" x="0.0" y="66" width="320" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo" textLabel="c65-Tv-9Qe" detailTextLabel="0Lk-yT-dPR" style="IBUITableViewCellStyleSubtitle" id="8ja-8k-gtw">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -191,9 +175,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Photo Selector" id="e8w-Ek-JML"/>
-                    <connections>
-                        <outlet property="spinner" destination="BDd-Bt-GYj" id="oN9-wc-vGq"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4GI-we-dds" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -334,49 +315,6 @@
             <point key="canvasLocation" x="2682" y="472"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="DetailViewController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
-        </class>
-        <class className="FlickrPhotoSelectorTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoSelectorTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
-            </relationships>
-        </class>
-        <class className="FlickrPhotoViewController" superclassName="PhotoViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
-            </relationships>
-        </class>
-        <class className="FlickrTopPlacesTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrTopPlacesTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
-            </relationships>
-        </class>
-        <class className="MapViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mapTypeSelector" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-            </relationships>
-        </class>
-        <class className="PhotoViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="RecentPhotosSelectorTableViewController" superclassName="FlickrPhotoSelectorTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentPhotosSelectorTableViewController.h"/>
-        </class>
-        <class className="RotatableViewController" superclassName="UITabBarController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RotatableViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

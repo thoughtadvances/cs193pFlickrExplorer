@@ -15,7 +15,6 @@
 #import "SegmentedViewController.h"                 // ipad view switching
 
 @interface FlickrPhotoSelectorTableViewController ()
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView* spinner;
 @property (nonatomic, strong) NSDictionary* thumbnailImages;
 @end
 
