@@ -83,6 +83,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // 
     if ([segue.identifier isEqualToString:@"PlacePhotos"])
         [segue.destinationViewController setPlace:sender];
     else if ([segue.identifier isEqualToString:@"showTablePhoto"])

@@ -6,10 +6,8 @@
 //  Copyright (c) 2012 ThoughtAdvances. All rights reserved.
 //
 
-#import "FlickrTopPlacesTableViewController.h"      // self
-#import "FlickrFetcher.h"                           // get Flickr network data
-#import "FlickrPhotoSelectorTableViewController.h"
-#import "MapViewController.h"
+#import "FlickrTopPlacesTableViewController.h"  // self
+#import "FlickrFetcher.h"                       // get Flickr photos from net
 
 @interface FlickrTopPlacesTableViewController ()
 @end

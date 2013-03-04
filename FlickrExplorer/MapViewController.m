@@ -29,10 +29,9 @@
 
 - (void)updateMapView {
     if (self.mapView) {
-        if (self.mapView.annotations) [self.mapView
-                                       removeAnnotations:
-                                       self.mapView.annotations];
-        if (self.annotations && [self.annotations count] != 0) {
+        if (self.mapView.annotations) // Remove old annotations
+            [self.mapView removeAnnotations:self.mapView.annotations];
+        if (self.annotations && [self.annotations count] != 0) { // set new
             [self.mapView addAnnotations:self.annotations];
             [self setMapViewRegion];
         }
@@ -65,7 +64,8 @@
     double minLongitude = 180;
     for (id<MKAnnotation> annotation in self.annotations) { // get bounds
         if (annotation.coordinate.latitude) {
-            NSLog(@"Coordinates: %f, %f", annotation.coordinate.latitude, annotation.coordinate.longitude);
+            NSLog(@"Coordinates: %f, %f", annotation.coordinate.latitude,
+                  annotation.coordinate.longitude);
             if (annotation.coordinate.latitude > maxLatitude)
                 maxLatitude = annotation.coordinate.latitude;
             else if (annotation.coordinate.latitude < minLatitude)
@@ -92,9 +92,8 @@
     double latitudeCenter = (maxLatitude + minLatitude ) / 2;
     double longitudeCenter = (maxLongitude + minLongitude) / 2;
     CLLocationCoordinate2D center = {latitudeCenter, longitudeCenter};
-    // set it
-    [self.mapView setRegion:MKCoordinateRegionMake(center, MKCoordinateSpanMake(latitudeDelta, longitudeDelta))];
-    
+    MKCoordinateSpan span = MKCoordinateSpanMake(latitudeDelta, longitudeDelta);
+    [self.mapView setRegion:MKCoordinateRegionMake(center, span)]; // set it
 }
 
 @end

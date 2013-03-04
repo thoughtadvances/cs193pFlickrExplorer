@@ -97,9 +97,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (!self.splitViewController && !self.image) [self.spinner startAnimating];
-    // startAnimating call in setPhoto doesn't
-    //  work when segueing to this view controller
-
 }
 
 - (void)viewDidAppear:(BOOL)animated { // save photo to NSUserDefaults
