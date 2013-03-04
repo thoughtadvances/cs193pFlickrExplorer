@@ -17,7 +17,7 @@
 
 // An Array of UIViewControllers which are the view controllers in the
 //  UISegmentedButton, from left to right
-@property (nonatomic, readonly) NSArray* viewControllers;
+@property (nonatomic, strong, readonly) NSArray* viewControllers;
 
 // Programatically switch to the segment whose UIViewController's ID is
 //  viewControllerName.  viewControllerName must be defined in the
@@ -28,5 +28,5 @@
 - (UIViewController*)getViewControllerWithID:(NSString*)viewControllerID;
 
 // The view controller associated with the currently selected segment
-@property (nonatomic, readonly) UIViewController* selectedViewController;
+@property (nonatomic, strong, readonly) UIViewController* selectedViewController;
 @end
