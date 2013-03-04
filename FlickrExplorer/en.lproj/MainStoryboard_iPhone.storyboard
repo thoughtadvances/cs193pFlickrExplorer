@@ -388,7 +388,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
-                                            <segue destination="jte-xb-oYm" kind="push" id="Sah-Xi-2WL"/>
+                                            <segue destination="jte-xb-oYm" kind="push" identifier="showItinerary" id="Sah-Xi-2WL"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Dwc-Ja-OUO" style="IBUITableViewCellStyleDefault" id="kjo-Ez-jIw">
@@ -409,7 +409,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
-                                            <segue destination="Usv-df-cdo" kind="push" id="YiI-Mv-bVy"/>
+                                            <segue destination="Usv-df-cdo" kind="push" identifier="showTags" id="YiI-Mv-bVy"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -499,7 +499,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <segue destination="ShT-fo-uHt" kind="push" id="oTK-ce-Qjf"/>
+                                    <segue destination="ShT-fo-uHt" kind="push" identifier="showPhotos" id="oTK-ce-Qjf"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -662,9 +662,6 @@
         </class>
         <class className="FlickrPhotoSelectorTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoSelectorTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
-            </relationships>
         </class>
         <class className="FlickrPhotoViewController" superclassName="PhotoViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoViewController.h"/>
